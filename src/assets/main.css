@@ -1,35 +1,29 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+@import 'tailwindcss';
+@plugin "flyonui" {
+  themes:
+    shadcn --default,
+    corporate --prefersdark,
+    shadcn;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
+@custom-variant dark (&:where([data-theme=corporate], [data-theme=corporate] *));
+@custom-variant light (&:where([data-theme=shadcn], [data-theme=shadcn] *));
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+@layer base {
+  .txt-grad {
+    @apply bg-gradient-to-tr from-info to-accent bg-clip-text text-shadow-sm text-transparent;
+  }
+
+  .body {
+    @apply p-2 bg-neutral-content/20 rounded-3xl shadow-sm/13 border border-neutral-content/75;
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+@plugin "flyonui/theme" {
+  name: 'shadcn';
+  default: true;
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+  --radius-selector: 1rem;
+  --radius-field: 1rem;
+  --radius-box: 0.5rem;
 }
