@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin "@iconify/tailwind4";
 @plugin "flyonui" {
   themes:
     shadcn --default,
@@ -24,6 +25,14 @@
   default: true;
 
   --radius-selector: 1rem;
-  --radius-field: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+}
+@plugin "flyonui/theme" {
+  name: 'corporate';
+  default: true;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.125rem;
   --radius-box: 0.5rem;
 }
