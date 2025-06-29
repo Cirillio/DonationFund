@@ -17,7 +17,7 @@ const statusRef = ref(props.status)
 </script>
 
 <template>
-  <label class="custom-option p-2 flex items-center gap-2 cursor-pointer select-none">
+  <label class="custom-option rounded-xs p-2 flex items-center gap-2 cursor-pointer select-none">
     <span
       class="size-8 duration-150 transition-colors"
       :class="`icon-[f7--${icon}]` + (statusRef ? ' text-primary' : '')"
@@ -36,6 +36,6 @@ const statusRef = ref(props.status)
         {{ description }}</span
       >
     </div>
-    <input type="checkbox" class="checkbox checkbox-primary" v-model="statusRef" />
+    <input type="checkbox" class="checkbox rounded-xs checkbox-primary" v-model="statusRef" />
   </label>
 </template>

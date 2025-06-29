@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppHeader from '@/components/Header/AppHeader.vue'
 import AppFooter from '@/components/Footer/AppFooter.vue'
-// import DockBar from '@/components/DockBar/DockBar.vue'
-document.body.dataset.theme = 0 ? 'shadcn' : 'corporate'
+import DockBar from '@/components/DockBar/DockBar.vue'
+document.body.dataset.theme = 1 ? 'shadcn' : 'corporate'
 </script>
 
 <template>
@@ -14,6 +14,6 @@ document.body.dataset.theme = 0 ? 'shadcn' : 'corporate'
     </div>
     <div class="divider w-2/3 mx-auto"></div>
     <AppFooter />
-    <!-- <DockBar /> -->
+    <DockBar />
   </div>
 </template>

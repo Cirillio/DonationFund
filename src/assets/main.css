@@ -25,7 +25,7 @@
   default: true;
 
   --radius-selector: 1rem;
-  --radius-field: 0.5rem;
+  --radius-field: 0.125rem;
   --radius-box: 0.5rem;
 }
 @plugin "flyonui/theme" {
