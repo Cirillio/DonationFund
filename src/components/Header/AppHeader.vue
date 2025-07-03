@@ -1,5 +1,10 @@
-<script lang="ts" setup>
+<script setup>
+import { useWindowWide } from '@/composables/useWindowWide'
 import HeaderNav from './HeaderNav.vue'
+import { ref } from 'vue'
+
+const navVisible = ref(true)
+useWindowWide(400, navVisible)
 </script>
 
 <template>
@@ -10,6 +15,6 @@ import HeaderNav from './HeaderNav.vue'
       Donation Fund
     </span>
 
-    <HeaderNav />
+    <HeaderNav v-if="navVisible" />
   </header>
 </template>

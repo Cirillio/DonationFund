@@ -1,8 +1,17 @@
-<script setup lang="ts">
+<script setup>
+import { useWindowWide } from '@/composables/useWindowWide'
+import { ref, onMounted } from 'vue'
 import AppHeader from '@/components/Header/AppHeader.vue'
 import AppFooter from '@/components/Footer/AppFooter.vue'
 import DockBar from '@/components/DockBar/DockBar.vue'
-document.body.dataset.theme = 1 ? 'shadcn' : 'corporate'
+
+const dockBarVisible = ref(true)
+
+useWindowWide(400, dockBarVisible)
+
+onMounted(() => {
+  document.body.dataset.theme = 'shadcn'
+})
 </script>
 
 <template>
@@ -14,6 +23,6 @@ document.body.dataset.theme = 1 ? 'shadcn' : 'corporate'
     </div>
     <div class="divider w-2/3 mx-auto"></div>
     <AppFooter />
-    <DockBar />
+    <DockBar v-if="!dockBarVisible" />
   </div>
 </template>

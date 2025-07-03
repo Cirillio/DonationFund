@@ -1,23 +1,30 @@
 @import 'tailwindcss';
-@plugin "@iconify/tailwind4";
-@plugin "flyonui" {
-  themes:
-    shadcn --default,
-    corporate --prefersdark,
-    shadcn;
+
+@plugin "@iconify/tailwind4" {
+  prefixes: f7, mdi-light, vscode-icons;
 }
 
-@custom-variant dark (&:where([data-theme=corporate], [data-theme=corporate] *));
-@custom-variant light (&:where([data-theme=shadcn], [data-theme=shadcn] *));
+@plugin "flyonui" {
+  themes: all;
+}
+
+@custom-variant dark (&:where([data-theme=black], [data-theme=black] *));
+@custom-variant light (&:where([data-theme=corporate], [data-theme=corporate] *));
 
 @layer base {
-  .txt-grad {
-    @apply bg-gradient-to-tr from-info to-accent bg-clip-text text-shadow-sm text-transparent;
-  }
+}
 
-  .body {
-    @apply p-2 bg-neutral-content/20 rounded-3xl shadow-sm/13 border border-neutral-content/75;
-  }
+body {
+  @apply light:bg-base-100/90;
+}
+
+@plugin "flyonui/theme" {
+  name: 'corporate';
+  default: true;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.5rem;
 }
 
 @plugin "flyonui/theme" {
@@ -29,7 +36,7 @@
   --radius-box: 0.5rem;
 }
 @plugin "flyonui/theme" {
-  name: 'corporate';
+  name: 'black';
   default: true;
 
   --radius-selector: 1rem;

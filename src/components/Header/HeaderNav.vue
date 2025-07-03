@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import HeaderLink from './HeaderLink.vue'
 
 const links = [
@@ -9,7 +9,7 @@ const links = [
 </script>
 
 <template>
-  <ul class="flex w-full flex-col sm:flex-row gap-1 sm:gap-0 sm:justify-evenly">
+  <ul class="flex w-full flex-col sm:flex-row gap-2 sm:gap-0 items-center sm:justify-evenly">
     <HeaderLink v-for="link in links" :key="link.to" :to="link.to" :label="link.label" />
   </ul>
 </template>

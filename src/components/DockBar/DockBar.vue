@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import DockBarButton from './DockBarButton.vue'
 import { ref } from 'vue'
 
@@ -9,26 +9,24 @@ const toggle = () => (expanded.value = !expanded.value)
 
 <template>
   <div
-    class="fixed left-0 w-full transition-all pb-2 px-2"
-    :class="expanded ? '-bottom-0' : '-bottom-32'"
+    class="fixed left-0 w-full transition-all ease-out"
+    :class="expanded ? '-bottom-0' : '-bottom-16'"
   >
-    <div class="flex flex-col w-full rounded-sm shadow-sm shadow-black/50 bg-base-100 h-fit">
-      <div class="mx-auto btn h-fit btn-text btn-block" @click="toggle">
+    <div
+      class="flex flex-col w-full overflow-hidden shadow-sm/50 shadow-black/75 bg-base-100 h-fit rounded-t-md"
+    >
+      <div
+        class="mx-auto w-full flex items-center justify-center h-fit active:bg-primary/5 active:*:text-primary transition-colors"
+        @click="toggle"
+      >
         <span
-          :class="`${expanded ? 'icon-[f7--chevron-compact-down]' : 'icon-[f7--chevron-compact-up]'} text-base-content/25 size-8`"
+          :class="`${expanded ? 'icon-[f7--chevron-compact-down]' : 'icon-[f7--chevron-compact-up]'} text-primary/75 transition-colors size-8`"
         ></span>
       </div>
-      <div class="flex flex-col p-4 gap-4">
-        <div class="flex w-full justify-evenly">
-          <DockBarButton icon="money-rubl" to="" />
-          <DockBarButton icon="chart-bar-square" to="stats" />
-          <DockBarButton icon="doc-richtext" to="news" />
-        </div>
-        <span
-          class="text-2xl px-4 py-0 font-bold shrink-0 text-shadow-lg select-none flex items-center w-full justify-center sm:justify-start sm:w-fit"
-        >
-          Donation Fund
-        </span>
+      <div class="flex w-full items-center justify-center gap-2 p-2">
+        <DockBarButton icon="f7--house-alt" to="" />
+        <DockBarButton icon="f7--chart-bar-square" to="stats" />
+        <DockBarButton icon="f7--doc-richtext" to="news" />
       </div>
     </div>
   </div>

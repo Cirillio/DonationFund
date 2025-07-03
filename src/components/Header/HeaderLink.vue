@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -14,8 +14,8 @@ const isActive = computed(() => route.path === '/' + props.to)
 <template>
   <li class="flex">
     <router-link
-      class="btn transition-all duration-150 btn-sm btn-block"
-      :class="{ 'btn-soft btn-accent': isActive, 'btn-text': !isActive }"
+      class="btn transition-all duration-150 btn-sm"
+      :class="{ 'btn-primary shadow-sm': isActive, 'btn-text': !isActive }"
       :to="'/' + to"
     >
       {{ label }}

@@ -1,13 +1,9 @@
-<script lang="ts" setup>
+<script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-
 const props = defineProps({
   icon: String,
-  to: {
-    type: String,
-    required: true,
-  },
+  to: String,
 })
 
 const route = useRoute()
@@ -15,9 +11,12 @@ const isActive = computed(() => route.path === '/' + props.to)
 </script>
 
 <template>
-  <router-link :to="'/' + to">
-    <button class="btn btn-lg btn-square btn-soft" :class="{ 'btn-accent': isActive }">
-      <span :class="`icon-[f7--${icon}]  size-8`"></span>
+  <router-link class="flex-1" :to="'/' + to">
+    <button
+      class="btn btn-block btn-xl btn-text"
+      :class="{ 'btn-active': isActive, 'btn-primary': !isActive }"
+    >
+      <span :class="`iconify ${icon} size-7`"></span>
     </button>
   </router-link>
 </template>
