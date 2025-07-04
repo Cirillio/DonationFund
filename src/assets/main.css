@@ -5,41 +5,39 @@
 }
 
 @plugin "flyonui" {
-  themes: all;
+  themes:
+    mintlify --default,
+    black --prefersdark;
+}
+
+@plugin "flyonui/theme" {
+  name: 'mintlify';
+  default: true; /* Set as default theme */
+  prefersdark: false; /* Set dark mode for prefers-color-scheme: dark */
+  color-scheme: light; /* Defines the color of browser UI */
+
+  --radius-selector: 0.25rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.125rem;
+}
+
+@plugin "flyonui/theme" {
+  name: 'black';
+  default: false; /* Set as default theme */
+  prefersdark: true; /* Set dark mode for prefers-color-scheme: dark */
+  color-scheme: dark; /* Defines the color of browser UI */
+
+  --radius-selector: 1rem;
+  --radius-field: 0.125rem;
+  --radius-box: 0.5rem;
 }
 
 @custom-variant dark (&:where([data-theme=black], [data-theme=black] *));
-@custom-variant light (&:where([data-theme=corporate], [data-theme=corporate] *));
+@custom-variant light (&:where([data-theme=mintlify], [data-theme=mintlify] *));
 
 @layer base {
 }
 
 body {
   @apply light:bg-base-100/90;
-}
-
-@plugin "flyonui/theme" {
-  name: 'corporate';
-  default: true;
-
-  --radius-selector: 1rem;
-  --radius-field: 0.125rem;
-  --radius-box: 0.5rem;
-}
-
-@plugin "flyonui/theme" {
-  name: 'shadcn';
-  default: true;
-
-  --radius-selector: 1rem;
-  --radius-field: 0.125rem;
-  --radius-box: 0.5rem;
-}
-@plugin "flyonui/theme" {
-  name: 'black';
-  default: true;
-
-  --radius-selector: 1rem;
-  --radius-field: 0.125rem;
-  --radius-box: 0.5rem;
 }

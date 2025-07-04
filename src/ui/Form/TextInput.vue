@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch } from 'vue'
+import ErrorList from '../Errors/ErrorList.vue'
+import { ref, watch, defineExpose } from 'vue'
 const iconRef = ref()
 
 const props = defineProps({
@@ -13,19 +14,18 @@ const props = defineProps({
 const inputRef = ref(props.value)
 const errors = ref([])
 const isValid = ref(props.value ? true : false)
+
 const emit = defineEmits(['input', 'change'])
+const emitData = {
+  input: inputRef,
+  errors: errors,
+}
 
-const input = () =>
-  emit('input', {
-    input: inputRef,
-    errors: errors,
-  })
-
-const change = () =>
-  emit('change', {
-    input: inputRef,
-    errors: errors,
-  })
+const input = () => emit('input', emitData)
+const change = () => emit('change', emitData)
+defineExpose({
+  data: emitData,
+})
 
 watch(errors, () => {
   isValid.value = errors.value.length === 0
@@ -34,7 +34,9 @@ watch(errors, () => {
 
 <template>
   <div class="flex flex-col">
-    <span class="text-base-content text-base font-normal italic px-1 pb-1">{{ label }}</span>
+    <span v-if="label" class="text-base-content text-base font-normal italic px-1 pb-1">{{
+      label
+    }}</span>
     <div class="input max-sm:w-full shadow-xs group shadow-base-content/25">
       <span
         ref="iconRef"
@@ -57,8 +59,6 @@ watch(errors, () => {
         }"
       />
     </div>
-    <ul v-if="!isValid" class="flex flex-col w-full px-3 pt-1">
-      <li v-for="error in errors" :key="error" class="text-error list-disc text-xs">{{ error }}</li>
-    </ul>
+    <error-list :errors="errors" />
   </div>
 </template>

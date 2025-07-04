@@ -1,6 +1,6 @@
 <script setup>
 import { useWindowWide } from '@/composables/useWindowWide'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import AppHeader from '@/components/Header/AppHeader.vue'
 import AppFooter from '@/components/Footer/AppFooter.vue'
 import DockBar from '@/components/DockBar/DockBar.vue'
@@ -8,10 +8,6 @@ import DockBar from '@/components/DockBar/DockBar.vue'
 const dockBarVisible = ref(true)
 
 useWindowWide(400, dockBarVisible)
-
-onMounted(() => {
-  document.body.dataset.theme = 'shadcn'
-})
 </script>
 
 <template>

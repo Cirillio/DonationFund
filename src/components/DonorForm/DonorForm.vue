@@ -1,20 +1,23 @@
 <script setup>
-import TextInput from '@/ui/TextInput.vue'
-import CheckBlock from '@/ui/CheckBlock.vue'
-import TextareaBlock from '@/ui/TextareaBlock.vue'
+import TextInput from '@/ui/Form/TextInput.vue'
+import CheckBlock from '@/ui/Form/CheckBlock.vue'
+import TextareaBlock from '@/ui/Form/TextareaBlock.vue'
 import { useDonorStore } from '@/stores/donor.store'
 import { usePaymentStore } from '@/stores/payment.store'
+import { ref } from 'vue'
 let debounce = null
 
 const { donor, post } = useDonorStore()
 const payment = usePaymentStore()
 
+const inputPhoneRef = ref(null)
 const inputPhone = (payload) => {
   if (debounce) clearTimeout(debounce)
   debounce = setTimeout(() => {
     console.log(payload)
     const { input, errors } = payload
     const phone = input.value
+
     errors.value = []
     if (!/^8\d{10}$/.test(phone)) {
       errors.value.push('Телефон должен начинаться с 8 и содержать 11 цифр')
@@ -76,7 +79,7 @@ const toggleAnon = (payload) => {
 
   debounce = setTimeout(() => {
     disabled.value = false
-  }, 300)
+  }, 200)
 }
 
 const toggleGroup = (payload) => {
@@ -88,7 +91,7 @@ const toggleGroup = (payload) => {
 
   debounce = setTimeout(() => {
     disabled.value = false
-  }, 300)
+  }, 200)
 }
 
 const inputDesc = (payload) => {
@@ -143,10 +146,9 @@ const setPaymentType = (type) => {
     <div
       v-auto-animate
       class="flex flex-col w-full gap-2 duration-300 transition-all overflow-x-hidden px-1"
-      :class="{ '-mt-2': donor.anonymous, '-mt-0': !donor.anonymous }"
     >
       <TextInput
-        v-if="!donor.anonymous"
+        ref="inputPhoneRef"
         @input="inputPhone"
         :value="donor.phone"
         type="tel"
@@ -155,6 +157,7 @@ const setPaymentType = (type) => {
         placeholder="Укажите ваш телефон"
       />
       <TextInput
+        class="transition-all duration-300"
         v-if="!donor.anonymous"
         @input="inputName"
         :value="donor.name"
@@ -164,7 +167,6 @@ const setPaymentType = (type) => {
         placeholder="Введите ваше ФИО"
       />
       <TextInput
-        v-if="!donor.anonymous"
         @input="inputBirth"
         :value="donor.birth"
         type="date"
@@ -177,7 +179,7 @@ const setPaymentType = (type) => {
     <TextareaBlock
       @input="inputDesc"
       icon="f7--ellipses-bubble"
-      placeholder="Вы можете оставить пожелание или список людей, участвующих в пожертвовании"
+      placeholder="Вы можете оставить пожелаconsole.log()ние или список людей, участвующих в пожертвовании"
     />
 
     <TextInput
@@ -201,6 +203,7 @@ const setPaymentType = (type) => {
         () => {
           post()
           payment.test()
+          console.log(inputPhoneRef.data)
         }
       "
       class="btn btn-block btn-primary"

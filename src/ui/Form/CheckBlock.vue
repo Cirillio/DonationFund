@@ -52,7 +52,7 @@ const toggleStatus = () => {
       :disabled="disabled"
       @change="toggleStatus"
       type="checkbox"
-      class="checkbox rounded-xs transition-all duration-50 checkbox-primary"
+      class="checkbox rounded-xs transition-all duration-200 checkbox-primary"
       v-model="statusRef"
     />
   </label>

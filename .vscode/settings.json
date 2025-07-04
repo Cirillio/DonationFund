@@ -11,6 +11,8 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.enabledFileTypes": {
-    "vue": false
-  }
+    "vue": false,
+    "css": false
+  },
+  "cSpell.words": ["custom-variant"]
 }
