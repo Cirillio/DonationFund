@@ -23,8 +23,10 @@ const emitData = {
 
 const input = () => emit('input', emitData)
 const change = () => emit('change', emitData)
+
 defineExpose({
   data: emitData,
+  valid: isValid,
 })
 
 watch(errors, () => {

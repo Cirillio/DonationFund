@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 const props = defineProps({
   icon: String,
   title: {
@@ -11,12 +11,24 @@ const props = defineProps({
     required: false,
   },
   status: Boolean,
+  onChange: Function,
 })
 
+let disDebounce = null
 const statusRef = ref(props.status)
 const disabled = ref(false)
 
 const emit = defineEmits(['update:status'])
+
+const handleChange = () => {
+  if (disDebounce) clearTimeout
+  disabled.value = true
+  toggleStatus()
+  props.onChange(statusRef.value)
+  disDebounce = setTimeout(() => {
+    disabled.value = false
+  }, 200)
+}
 
 const toggleStatus = () => {
   emit('update:status', {
@@ -24,6 +36,10 @@ const toggleStatus = () => {
     disabled: disabled,
   })
 }
+
+onBeforeUnmount(() => {
+  clearTimeout(disDebounce)
+})
 </script>
 
 <template>
@@ -50,7 +66,7 @@ const toggleStatus = () => {
     </div>
     <input
       :disabled="disabled"
-      @change="toggleStatus"
+      @change="handleChange"
       type="checkbox"
       class="checkbox rounded-xs transition-all duration-200 checkbox-primary"
       v-model="statusRef"

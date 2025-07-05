@@ -5,103 +5,21 @@ import TextareaBlock from '@/ui/Form/TextareaBlock.vue'
 import { useDonorStore } from '@/stores/donor.store'
 import { usePaymentStore } from '@/stores/payment.store'
 import { ref } from 'vue'
+import { useDebounce } from '@/composables/useDebounce'
+import validator from '@/utils/Validations'
+import { toggleCheckBlock } from '@/ui/Form/toggleCheckBlock'
+
 let debounce = null
 
 const { donor, post } = useDonorStore()
 const payment = usePaymentStore()
 
 const inputPhoneRef = ref(null)
-const inputPhone = (payload) => {
-  if (debounce) clearTimeout(debounce)
-  debounce = setTimeout(() => {
-    console.log(payload)
-    const { input, errors } = payload
-    const phone = input.value
-
-    errors.value = []
-    if (!/^8\d{10}$/.test(phone)) {
-      errors.value.push('Телефон должен начинаться с 8 и содержать 11 цифр')
-    }
-
-    if (!/^\d+$/.test(phone)) {
-      errors.value.push('Телефон должен содержать только цифры')
-    }
-
-    donor.phone = phone
-  }, 100)
-}
-
-const inputName = (payload) => {
-  if (debounce) clearTimeout(debounce)
-  debounce = setTimeout(() => {
-    console.log(payload)
-    const { input, errors } = payload
-    const name = input.value
-    errors.value = []
-    const re = /^([А-Я][а-я]+) ([А-Я][а-я]+) ([А-Я][а-я]+)$/
-    if (!re.test(name)) {
-      errors.value.push('Заполните в формате "Фамилия Имя Отчество"')
-    }
-
-    donor.name = name
-  }, 100)
-}
-
-const inputBirth = (payload) => {
-  if (debounce) clearTimeout(debounce)
-  debounce = setTimeout(() => {
-    console.log(payload)
-    const { input, errors } = payload
-    const birth = input.value
-    errors.value = []
-    const today = new Date()
-    const birthDate = new Date(birth)
-    if (isNaN(birthDate.getTime())) {
-      errors.value.push('Дата рождения в неверном формате')
-    }
-    if (birthDate > today) {
-      errors.value.push('Дата рождения не может быть в будущем')
-    }
-    if (today.getFullYear() - birthDate.getFullYear() < 18) {
-      errors.value.push('Вы должны быть старше 18 лет')
-    }
-
-    donor.birth = birth
-  }, 100)
-}
-
-const toggleAnon = (payload) => {
-  const { status, disabled } = payload
-
-  if (debounce) clearTimeout(debounce)
-  donor.anonymous = status
-  disabled.value = true
-
-  debounce = setTimeout(() => {
-    disabled.value = false
-  }, 200)
-}
-
-const toggleGroup = (payload) => {
-  const { status, disabled } = payload
-
-  if (debounce) clearTimeout(debounce)
-  donor.group = status
-  disabled.value = true
-
-  debounce = setTimeout(() => {
-    disabled.value = false
-  }, 200)
-}
-
-const inputDesc = (payload) => {
-  if (debounce) clearTimeout(debounce)
-  debounce = setTimeout(() => {
-    console.log(payload)
-    const desc = payload
-    donor.desc = desc
-  }, 50)
-}
+const handleInputPhone = useDebounce((...args) => (donor.phone = validator.phone(...args)), 10)
+const handleInputName = useDebounce((...args) => (donor.name = validator.name(...args)), 10)
+const handleInputBirth = useDebounce((...args) => (donor.birth = validator.birth(...args)), 10)
+const handleCheckAnon = (payload) => (donor.anonymous = payload)
+const handleCheckGroup = (payload) => (donor.group = payload)
 
 const changeAmount = (payload) => {
   const { input } = payload
@@ -125,19 +43,24 @@ const inputAmount = (payload) => {
 const setPaymentType = (type) => {
   payment.paymentType = type
 }
+
+const inputDesc = (payload) => {
+  donor.desc = payload
+}
 </script>
 
 <template>
   <form action="" class="flex flex-col w-full gap-2">
     <CheckBlock
-      @update:status="toggleAnon"
+      :onChange="handleCheckAnon"
+      :disabled="donor.anonymous"
       :status="donor.anonymous"
       icon="f7--question-circle"
       title="Анонимно"
       description="Сделать пожертвование анонимным"
     />
     <CheckBlock
-      @update:status="toggleGroup"
+      :onChange="handleCheckGroup"
       :status="donor.group"
       icon="f7--person-2"
       title="Группа"
@@ -149,7 +72,7 @@ const setPaymentType = (type) => {
     >
       <TextInput
         ref="inputPhoneRef"
-        @input="inputPhone"
+        @input="handleInputPhone"
         :value="donor.phone"
         type="tel"
         icon="f7--phone"
@@ -159,7 +82,7 @@ const setPaymentType = (type) => {
       <TextInput
         class="transition-all duration-300"
         v-if="!donor.anonymous"
-        @input="inputName"
+        @input="handleInputName"
         :value="donor.name"
         type="text"
         icon="f7--person"
@@ -167,7 +90,7 @@ const setPaymentType = (type) => {
         placeholder="Введите ваше ФИО"
       />
       <TextInput
-        @input="inputBirth"
+        @input="handleInputBirth"
         :value="donor.birth"
         type="date"
         icon="f7--calendar"
@@ -199,6 +122,7 @@ const setPaymentType = (type) => {
       </option>
     </select>
     <button
+      :disabled="!payment.confirm"
       @click.prevent="
         () => {
           post()
