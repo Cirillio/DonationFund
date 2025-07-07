@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @plugin "@iconify/tailwind4" {
-  prefixes: f7, mdi-light, vscode-icons;
+  prefixes: f7, flagpack, mdi-light, line-md;
 }
 
 @plugin "flyonui" {
@@ -9,7 +9,6 @@
     mintlify --default,
     black --prefersdark;
 }
-
 @plugin "flyonui/theme" {
   name: 'mintlify';
   default: true; /* Set as default theme */

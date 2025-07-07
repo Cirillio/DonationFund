@@ -1,43 +1,37 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+import { usePaymentStore } from '@/stores/payment.store'
+import { useDonorStore } from '@/stores/donor.store'
+
 import TextInput from '@/ui/Form/TextInput.vue'
 import CheckBlock from '@/ui/Form/CheckBlock.vue'
 import TextareaBlock from '@/ui/Form/TextareaBlock.vue'
-import { useDonorStore } from '@/stores/donor.store'
-import { usePaymentStore } from '@/stores/payment.store'
-import { ref } from 'vue'
-import { useDebounce } from '@/composables/useDebounce'
-import validator from '@/utils/Validations'
-import { toggleCheckBlock } from '@/ui/Form/toggleCheckBlock'
+import PhoneInput from '@/ui/Form/PhoneInput.vue'
 
-let debounce = null
-
-const { donor, post } = useDonorStore()
+const { donor, post, resetForm } = useDonorStore()
 const payment = usePaymentStore()
 
 const inputPhoneRef = ref(null)
-const handleInputPhone = useDebounce((...args) => (donor.phone = validator.phone(...args)), 10)
-const handleInputName = useDebounce((...args) => (donor.name = validator.name(...args)), 10)
-const handleInputBirth = useDebounce((...args) => (donor.birth = validator.birth(...args)), 10)
+
 const handleCheckAnon = (payload) => (donor.anonymous = payload)
 const handleCheckGroup = (payload) => (donor.group = payload)
 
-const changeAmount = (payload) => {
-  const { input } = payload
-  const amount = parseFloat(input.value.replace(/[^\d.]/g, ''))
-  input.value = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}
+const formatAmount = (amount) => {
+  // 1. Проверка на допустимые символы
+  if (!/^[\d .]+$/.test(amount)) return '0.00'
 
-const inputAmount = (payload) => {
-  if (debounce) clearTimeout(debounce)
-  debounce = setTimeout(() => {
-    const { input, errors } = payload
-    const amount = parseFloat(input.value.replace(/[^\d.]/g, ''))
-    errors.value = []
-    if (isNaN(amount) || amount < 10) {
-      errors.value.push('Сумма пожертвования должна быть не меньше 10 рублей')
-    }
-    payment.sum = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-  }, 10)
+  // 2. Очистка и нормализация
+  const cleaned = amount
+    .replace(/ /g, '') // Удаляем все пробелы
+    .replace(/\.+/g, '.') // Заменяем множественные точки на одну
+    .replace(/(\..*)\./g, '$1') // Удаляем лишние точки после первой
+
+  // 3. Проверка на валидное число
+  const numericValue = parseFloat(cleaned)
+  if (isNaN(numericValue)) return '0.00'
+
+  // 4. Форматирование результата
+  return numericValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
 
 const setPaymentType = (type) => {
@@ -47,6 +41,8 @@ const setPaymentType = (type) => {
 const inputDesc = (payload) => {
   donor.desc = payload
 }
+
+onMounted(() => resetForm)
 </script>
 
 <template>
@@ -66,32 +62,19 @@ const inputDesc = (payload) => {
       title="Группа"
       description="Сделать пожертвование от лица группы"
     />
-    <div
-      v-auto-animate
-      class="flex flex-col w-full gap-2 duration-300 transition-all overflow-x-hidden px-1"
-    >
-      <TextInput
-        ref="inputPhoneRef"
-        @input="handleInputPhone"
-        :value="donor.phone"
-        type="tel"
-        icon="f7--phone"
-        label="Телефон"
-        placeholder="Укажите ваш телефон"
-      />
+    <div v-auto-animate class="flex flex-col w-full gap-2 duration-300 transition-all px-1">
+      <PhoneInput icon="f7--phone" label="Телефон" placeholder="Укажите ваш телефон" />
       <TextInput
         class="transition-all duration-300"
         v-if="!donor.anonymous"
-        @input="handleInputName"
-        :value="donor.name"
+        v-model="donor.name"
         type="text"
         icon="f7--person"
         label="ФИО"
         placeholder="Введите ваше ФИО"
       />
       <TextInput
-        @input="handleInputBirth"
-        :value="donor.birth"
+        v-model="donor.birth"
         type="date"
         icon="f7--calendar"
         label="Дата рождения*"
@@ -106,8 +89,8 @@ const inputDesc = (payload) => {
     />
 
     <TextInput
-      @change="changeAmount"
-      @input="inputAmount"
+      :formatter="formatAmount"
+      v-model="payment.sum"
       type="text"
       icon="f7--money-rubl"
       label="Сумма"

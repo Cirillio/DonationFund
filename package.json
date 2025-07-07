@@ -15,14 +15,18 @@
     "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.10.0",
     "flyonui": "^2.2.0",
+    "libphonenumber-js": "^1.12.9",
     "pinia": "^3.0.3",
     "tailwindcss": "^4.1.11",
     "vue": "^3.5.17",
-    "vue-router": "^4.5.1"
+    "vue-multiselect": "^3.2.0",
+    "vue-router": "^4.5.1",
+    "vue-the-mask": "^0.11.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@iconify-json/f7": "^1.2.2",
+    "@iconify-json/line-md": "^1.2.8",
     "@iconify/json": "^2.2.353",
     "@iconify/tailwind4": "^1.0.6",
     "@vitejs/plugin-vue": "^6.0.0",

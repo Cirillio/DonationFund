@@ -20,6 +20,9 @@ importers:
       flyonui:
         specifier: ^2.2.0
         version: 2.2.0
+      libphonenumber-js:
+        specifier: ^1.12.9
+        version: 1.12.9
       pinia:
         specifier: ^3.0.3
         version: 3.0.3(vue@3.5.17)
@@ -29,9 +32,15 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.17
+      vue-multiselect:
+        specifier: ^3.2.0
+        version: 3.2.0
       vue-router:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.17)
+      vue-the-mask:
+        specifier: ^0.11.1
+        version: 0.11.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.29.0
@@ -39,6 +48,9 @@ importers:
       '@iconify-json/f7':
         specifier: ^1.2.2
         version: 1.2.2
+      '@iconify-json/line-md':
+        specifier: ^1.2.8
+        version: 1.2.8
       '@iconify/json':
         specifier: ^2.2.353
         version: 2.2.354
@@ -451,6 +463,9 @@ packages:
 
   '@iconify-json/f7@1.2.2':
     resolution: {integrity: sha512-7+RhvnncD+LRu0smuHOun4emOUu48XUGG6G0tYYbrXS7n4Io2xntx6nxa09/iI41t9hnH2oHHU3Dg7Ee60Ovow==}
+
+  '@iconify-json/line-md@1.2.8':
+    resolution: {integrity: sha512-jWFsu6OZ1xAd4U0MLc/dgawC8nCbSn+a+WjTv+luiihpb6rrGLMw+Vy3wQ01hGf77v+fwt8sTvwm6K9zN3r4vQ==}
 
   '@iconify/json@2.2.354':
     resolution: {integrity: sha512-I7sYXaLfvGw0msuc5p2VdQJ4nthbsqLW8IF9j1jaekUcs/xwGVgs3SHO5lEiFglv0odlkCu26CMbboZMvwkTcw==}
@@ -1268,6 +1283,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  libphonenumber-js@1.12.9:
+    resolution: {integrity: sha512-VWwAdNeJgN7jFOD+wN4qx83DTPMVPPAUyx9/TUkBXKLiNkuWWk6anV0439tgdtwaJDrEdqkvdN22iA6J4bUCZg==}
+
   lightningcss-darwin-arm64@1.30.1:
     resolution: {integrity: sha512-c8JK7hyE65X1MHMN+Viq9n11RRC7hgin3HhYKhrMyaXflk5GVplZ60IxyoVtzILeKr+xAJwg6zK6sjTBJ0FKYQ==}
     engines: {node: '>= 12.0.0'}
@@ -1708,10 +1726,17 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
 
+  vue-multiselect@3.2.0:
+    resolution: {integrity: sha512-ExI+IPvSbILbtaHrU0CgbBmfbD6yBpIWJKsGLPmuQMC7VWK8Nj1XSAI9eIt3n9/e+LSFYdt8VgfHxeS1O1OeVA==}
+    engines: {node: '>= 14.18.1', npm: '>= 6.14.15'}
+
   vue-router@4.5.1:
     resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
     peerDependencies:
       vue: ^3.2.0
+
+  vue-the-mask@0.11.1:
+    resolution: {integrity: sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==}
 
   vue@3.5.17:
     resolution: {integrity: sha512-LbHV3xPN9BeljML+Xctq4lbz2lVHCR6DtbpTf5XIO6gugpXUN49j2QQPcMj086r9+AkJ0FfUT8xjulKKBkkr9g==}
@@ -2106,6 +2131,10 @@ snapshots:
   '@humanwhocodes/retry@0.4.3': {}
 
   '@iconify-json/f7@1.2.2':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/line-md@1.2.8':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -2914,6 +2943,8 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  libphonenumber-js@1.12.9: {}
+
   lightningcss-darwin-arm64@1.30.1:
     optional: true
 
@@ -3313,10 +3344,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  vue-multiselect@3.2.0: {}
+
   vue-router@4.5.1(vue@3.5.17):
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.17
+
+  vue-the-mask@0.11.1: {}
 
   vue@3.5.17:
     dependencies:

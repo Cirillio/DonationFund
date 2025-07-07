@@ -1,19 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-const themes = [
-  'shadcn',
-  'luxury',
-  'light',
-  'dark',
-  'black',
-  'corporate',
-  'ghibli',
-  'gourmet',
-  'mintlify',
-  'slack',
-  'soft',
-  'valorant',
-]
+const themes = ['black', 'mintlify']
 const theme = ref(document.body.dataset.theme)
 const setTheme = (_theme) => {
   console.log(document.body.dataset.theme)
