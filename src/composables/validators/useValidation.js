@@ -1,12 +1,12 @@
 import { ref, onBeforeUnmount } from 'vue'
-export function useValidation(validation, _def) {
+
+export function useValidation(validation) {
   const errors = ref([])
-  const isValid = ref(_def ? true : false)
+  const isValid = ref(null)
 
   let abortController = null
 
   const validate = (value) => {
-    console.log('useValid: ' + value)
     if (abortController) abortController.abort()
     abortController = new AbortController()
 
@@ -16,15 +16,21 @@ export function useValidation(validation, _def) {
     return isValid.value
   }
 
+  const reset = () => {
+    errors.value = []
+    isValid.value = null
+  }
+
   onBeforeUnmount(() => {
     if (abortController) abortController.abort()
     abortController = null
-    errors.value = []
+    reset()
   })
 
   return {
     errors,
     isValid,
     validate,
+    reset,
   }
 }

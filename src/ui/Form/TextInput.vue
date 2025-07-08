@@ -1,56 +1,23 @@
 <script setup>
 import ErrorList from '../Errors/ErrorList.vue'
-import { useValidation } from '@/composables/useValidation'
-import { ref, defineExpose, defineModel } from 'vue'
+import { useValidation } from '@/composables/validators/useValidation'
+import { ref } from 'vue'
 const iconRef = ref()
 
 const props = defineProps({
   icon: String,
   label: String,
   placeholder: String,
-  type: String,
-  value: String,
-  validator: Function,
   formatter: {
     type: Function,
     default: (value) => value,
   },
 })
 
-let debounce = null
 const inputRef = ref('')
 const loading = ref(false)
-const model = defineModel()
 
 const { errors, isValid, validate } = useValidation(props.validator, '')
-const emit = defineEmits(['input', 'change'])
-
-const input = () => {
-  if (debounce) clearTimeout(debounce)
-  loading.value = true
-  debounce = setTimeout(() => {
-    emit('input', inputRef.value)
-    validate(inputRef.value)
-    if (isValid.value && model) model.value = props.formatter(inputRef.value)
-    loading.value = false
-  }, 200)
-}
-
-const change = () => {
-  if (debounce) clearTimeout(debounce)
-  loading.value = false
-  validate(inputRef.value)
-  if (isValid.value) {
-    model.value = props.formatter(inputRef.value)
-    inputRef.value = props.formatter(inputRef.value)
-  }
-  emit('change', inputRef.value)
-}
-
-defineExpose({
-  data: inputRef.value,
-  validate: () => validate(inputRef.value),
-})
 </script>
 
 <template>
@@ -58,7 +25,7 @@ defineExpose({
     <span v-if="label" class="text-base-content text-base font-normal italic px-1 pb-1">{{
       label
     }}</span>
-    <div class="input max-sm:w-full pr-0 shadow-xs group shadow-base-content/25">
+    <div class="input max-sm:w-full pr-0 group box-shadow">
       <span
         ref="iconRef"
         class="iconify text-base-content/80 my-auto me-3 size-5 sm:size-6 shrink-0"
@@ -66,9 +33,7 @@ defineExpose({
       ></span>
       <input
         v-model="inputRef"
-        @input="input"
-        @change="change"
-        :type="type"
+        type="text"
         :placeholder="placeholder"
         :name="icon"
         class="grow max-sm:text-sm"
@@ -84,6 +49,6 @@ defineExpose({
         class="iconify line-md--loading-twotone-loop text-accent my-auto mx-2 size-5 sm:size-6 shrink-0"
       ></span>
     </div>
-    <error-list :errors="errors" />
+    <error-list v-if="errors.length > 0" :errors="errors" />
   </div>
 </template>

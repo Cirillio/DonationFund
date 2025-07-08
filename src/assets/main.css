@@ -16,8 +16,13 @@
   color-scheme: light; /* Defines the color of browser UI */
 
   --radius-selector: 0.25rem;
-  --radius-field: 0.125rem;
-  --radius-box: 0.125rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+
+  --border: 1px;
+
+  --depth: 1;
+  --noise: 0;
 }
 
 @plugin "flyonui/theme" {
@@ -34,9 +39,13 @@
 @custom-variant dark (&:where([data-theme=black], [data-theme=black] *));
 @custom-variant light (&:where([data-theme=mintlify], [data-theme=mintlify] *));
 
-@layer base {
+@layer theme {
 }
 
 body {
-  @apply light:bg-base-100/90;
+  @apply light:bg-base-100/30;
+}
+
+.box-shadow {
+  @apply shadow-xs shadow-base-content/20;
 }

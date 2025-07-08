@@ -16,7 +16,7 @@ const input = () => {
 </script>
 
 <template>
-  <div class="textarea shadow-xs shadow-base-content/25 group min-h-32 p-0">
+  <div class="textarea box-shadow group min-h-20 p-0">
     <span
       ref="iconRef"
       class="iconify text-base-content/80 mt-2 ml-4 size-5 shrink-0"
@@ -25,7 +25,7 @@ const input = () => {
     <textarea
       v-model="inputRef"
       @input="input"
-      class="grow text-sm resize-none mx-2"
+      class="grow text-xs resize-none mx-2"
       :placeholder="placeholder"
       @focus="() => iconRef.classList.add('text-primary')"
       @blur="() => iconRef.classList.remove('text-primary')"
