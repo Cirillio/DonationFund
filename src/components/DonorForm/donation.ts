@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-interface payment {
-  amount: number
-  paymentType: string
+const handlePayment = async (payment: any) => {
+  try {
+    const response = await axios.post('https://ryjh7s-3000.csb.app/payments', payment)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-const handlePayment = async (payment: payment) => {
-  await axios.post('/api/donate', payment).then((res) => {
-    console.log(res)
-  })
-}
+export default handlePayment

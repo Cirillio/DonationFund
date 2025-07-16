@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@iconify/tailwind4" {
-  prefixes: flag, f7;
+  prefixes: f7;
 }
 
 @custom-variant dark (&:is(.dark *));

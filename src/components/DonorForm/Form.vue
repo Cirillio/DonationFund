@@ -5,6 +5,9 @@ import { toTypedSchema } from '@vee-validate/zod'
 import PersonalContent from './PersonalContent.vue'
 import OptionalContent from './OptionalContent.vue'
 import PaymentContent from './PaymentContent.vue'
+import { getCurrentFormattedDateTime } from './getNowDate'
+import handlePayment from './donation'
+import { useRouter } from 'vue-router'
 
 const donorSchema = z.object({
   phone: z.string().nonempty('Телефон обязателен для заполнения.'),
@@ -54,9 +57,35 @@ const { handleSubmit } = useForm({
   },
 })
 
-const onSubmit = handleSubmit((formValues) => {
+const router = useRouter();
+
+const onSubmit = handleSubmit(async (formValues) => {
   console.log('Форма успешно отправлена! Значения:', formValues)
-  alert(`Привет, ${formValues.username}! Сумма пожертвования: ${formValues.amount} руб.`)
+  // alert(`Привет, ${formValues.username}! Сумма пожертвования: ${formValues.amount} руб.`)
+
+  const request = {
+    amount: {
+      value: formValues.amount,
+      currency: 'RUB',
+    },
+    payment_method_data: {
+      type: formValues.paymentType,
+    },
+    capture: true,
+    confirmation: {
+      type: 'redirect',
+      return_url: 'http://localhost:5173/',
+    },
+    description: 'Заказ от ' + getCurrentFormattedDateTime(),
+  };
+
+  try {
+    const response = await handlePayment(request);
+    router.push(response);
+  }
+  catch (error) {
+    console.error(error)
+  }
 })
 </script>
 
@@ -72,9 +101,7 @@ const onSubmit = handleSubmit((formValues) => {
         <PersonalContent />
         <OptionalContent />
         <PaymentContent />
-        <Button @click="onSubmit" type="button" class="w-fit ml-auto mt-auto cursor-pointer"
-          >Пожертвовать</Button
-        >
+        <Button @click="onSubmit" type="button" class="w-fit ml-auto mt-auto cursor-pointer">Пожертвовать</Button>
       </form>
     </CardContent>
     <Separator />
