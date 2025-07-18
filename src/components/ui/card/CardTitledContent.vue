@@ -14,12 +14,12 @@ defineProps({
 <template>
   <div class="flex flex-col gap-2 flex-1">
     <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1.5">
         <div class="flex gap-2">
-          <span class="iconify my-auto size-7 text-primary" :class="[icon]"></span>
+          <span class="iconify my-auto size-7 dark:text-primary" :class="[icon]"></span>
           <span class="text-xl">{{ title }}</span>
         </div>
-        <Separator class="bg-primary/50" />
+        <Separator class="dark:bg-primary/50 bg-foreground/25" />
         <span class="text-sm text-muted-foreground">{{ desc }}</span>
       </div>
     </div>

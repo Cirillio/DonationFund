@@ -1,11 +1,14 @@
-interface IVModelInput {
+import { z } from 'zod'
+
+interface IModelInput {
   label?: string
   placeholder?: string
   name: string
   type?: string
   icon?: string
-  errors?: string
-  modelValue?: string
+  mask?: string | undefined
+  schema: z.ZodTypeAny
+  initialValue?: any
 }
 
-export type { IVModelInput }
+export type { IModelInput }

@@ -4,12 +4,12 @@ const { links, activeLink } = useHeaderLinks()
 </script>
 
 <template>
-  <Card class="flex flex-row p-4 gap-4">
-    <div class="">
-      <span class="text-2xl font-bold">Donation Fund</span>
+  <Card class="flex flex-row p-2 items-baseline justify-between">
+    <div class="w-fit flex items-baseline">
+      <span class="text-2xl px-4 font-bold">Donation Fund</span>
     </div>
-    <nav class="flex flex-1">
-      <ul class="flex w-full justify-around">
+    <nav class="flex">
+      <ul class="flex w-fit gap-2">
         <li v-for="link in links" :key="link.name">
           <RouterLink :to="link.url">
             <Button :variant="link.name === activeLink?.name ? 'default' : 'outline'">

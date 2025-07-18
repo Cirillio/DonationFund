@@ -3,8 +3,10 @@ import MainHeader from '@/components/Header/MainHeader.vue'
 </script>
 
 <template>
-  <div v-auto-animate class="min-h-dvh p-4 max-w-[846px] mx-auto flex flex-col gap-4">
+  <div class="min-h-dvh p-1 min-w-0 mx-auto flex flex-col gap-1">
     <main-header />
-    <router-view></router-view>
+    <div v-auto-animate class="flex flex-col h-full flex-1 justify-center items-center">
+      <router-view></router-view>
+    </div>
   </div>
 </template>

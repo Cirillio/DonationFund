@@ -31,8 +31,11 @@ watch(checked, () => emit('check:update', checked.value))
 <template>
   <div
     @click="check"
-    class="px-3 py-2 min-w-0 select-none gap-2 group dark:bg-input/30 dark:hover:bg-input/30 bg-background flex items-center transition-[color,box-shadow] rounded-md hover:bg-accent border border-input cursor-pointer"
-    :class="{ 'border-ring  ring-ring/50 ring-[3px]': checked }"
+    class="light-bordered px-3 py-2 min-w-0 select-none gap-2 group dark:bg-input/30 dark:hover:bg-input/30 flex items-center transition-all rounded-md cursor-pointer"
+    :class="{
+      '!border-ring hover:!border-ring ring-ring/50 ring-[3px] bg-popover/30': checked,
+      'hover:bg-popover/20': !checked,
+    }"
   >
     <span class="iconify text-muted-foreground size-6" :class="[icon]"></span>
 
@@ -43,7 +46,7 @@ watch(checked, () => emit('check:update', checked.value))
 
     <Checkbox
       :model-value="checked"
-      class="cursor-pointer bg-background ml-auto dark:data-[state=unchecked]:group-hover:border-primary"
+      class="cursor-pointer rounded-md backdrop-blur-sm transition-all group-hover:border-muted-foreground/50 bg-none ml-auto dark:data-[state=unchecked]:group-hover:border-primary"
     />
   </div>
 </template>
