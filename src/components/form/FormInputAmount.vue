@@ -1,13 +1,35 @@
 <script lang="ts" setup>
 import { IModelInput } from '@/interfaces/IVModelInput'
 import { useField } from 'vee-validate'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { toTypedSchema } from '@vee-validate/zod'
+import { CurrencyInputOptions, useCurrencyInput } from 'vue-currency-input'
+import { defineExpose } from 'vue'
 
 const modelInput = defineProps<IModelInput>()
 
-const { errors, value, meta } = useField(modelInput.name, toTypedSchema(modelInput.schema as any), {
+const {
+  errors,
+  meta,
+  setValue: setField,
+} = useField(modelInput.name, toTypedSchema(modelInput.schema as any), {
   initialValue: modelInput.initialValue,
+})
+
+const {
+  inputRef,
+  numberValue,
+  formattedValue,
+  setValue: setAmount,
+} = useCurrencyInput(modelInput.format as CurrencyInputOptions)
+
+watch(numberValue, (value) => setField(value))
+
+defineExpose({
+  setAmount,
+  getFormat() {
+    return formattedValue.value?.toString()
+  },
 })
 
 const valid = computed(() => errors.value.length === 0)
@@ -29,8 +51,8 @@ const valid = computed(() => errors.value.length === 0)
           'border-destructive hover:!border-destructive': !valid,
           'pl-9': icon,
         }"
-        v-bind="$attrs"
-        v-model="value"
+        ref="inputRef"
+        :value="formattedValue"
       />
       <span
         v-if="icon"

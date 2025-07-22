@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 import type { ICountry } from '@/interfaces/ICountry'
-import { countries } from '@/data/countries'
+import { countries } from '@/data/countries.data'
 
 const useCodeSelector = (_default: string) => {
   const selected = ref<ICountry>(countries.find((c) => c.id === _default) as ICountry)

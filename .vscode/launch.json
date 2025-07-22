@@ -6,9 +6,16 @@
   "configurations": [
     {
       "type": "node-terminal",
-      "name": "Запустить сценарий: dev",
+      "name": "dev",
       "request": "launch",
       "command": "pnpm run dev",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "dev network",
+      "request": "launch",
+      "command": "pnpm run dev --host",
       "cwd": "${workspaceFolder}"
     }
   ]

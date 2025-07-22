@@ -3,9 +3,14 @@ import { ref, computed } from 'vue'
 import { z } from 'zod'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
-import donorSchema from '@/data/donorSchema'
+import { CurrencyDisplay } from 'vue-currency-input'
+import donorSchema from '@/data/donor.schema.data'
 import FormInput from '../form/FormInput.vue'
+import FormInputAmount from '../form/FormInputAmount.vue'
 import { useCodeSelector, countries } from '@/composables/usePhonecodeSelector'
+import { useCurrency } from '@/composables/useCurrency'
+
+const { equel, currencyToNumber } = useCurrency()
 
 useForm({
   validationSchema: toTypedSchema(z.object(donorSchema)),
@@ -18,37 +23,30 @@ const descVariants = ['Можете указать пожелания', 'Ука�
 const groupCheck = ref()
 const placeholder = computed(() => (groupCheck.value ? descVariants[1] : descVariants[0]))
 const amounts = ref(['100,00', '500,00', '1 000,00', '2 500,00', '5 000,00', '10 000,00'])
-const selam = ref()
+const inputAmount = ref()
 
-// const onSubmit = handleSubmit(async (formValues) => {
-//   console.log('Форма успешно отправлена! Способ оплаты:', formValues.paymentType)
-//   // alert(`Привет, ${formValues.username}! Сумма пожертвования: ${formValues.amount} руб.`)
+const toggleAmountSelect = (selectValue: string | undefined | unknown) => {
+  if (typeof selectValue === 'string') {
+    inputAmount.value.setAmount(currencyToNumber(selectValue))
+  } else {
+    inputAmount.value.setAmount(undefined)
+  }
+}
 
-//   const request = {
-//     amount: {
-//       value: formValues.amount,
-//       currency: 'RUB',
-//     },
-//     payment_method_data: {
-//       type: formValues.paymentType,
-//     },
-//     capture: true,
-//     confirmation: {
-//       type: 'redirect',
-//       return_url: 'http://localhost:5173/',
-//     },
-//     description: 'Заказ от ' + getCurrentFormattedDateTime(),
-//   }
+const payments = [
+  {
+    type: 'sbp',
+    name: 'СБП',
+    icon: 'SBP.svg',
+  },
+  {
+    type: 'bankcard',
+    name: 'Картой онлайн',
+    icon: 'bankcard.svg',
+  },
+]
 
-//   console.log(request)
-
-//   try {
-//     const response = await handlePayment(request)
-//     window.location.href = response
-//   } catch (error) {
-//     console.error(error)
-//   }
-// })
+const selectedPaymentType = ref()
 </script>
 
 <template>
@@ -74,7 +72,7 @@ const selam = ref()
               name="phone"
               icon="f7--phone"
               :schema="donorSchema.phone"
-              :mask="phoneMask"
+              v-mask="phoneMask"
             >
               <template #actionButton>
                 <DropdownMenu>
@@ -135,7 +133,13 @@ const selam = ref()
 
         <CardTitledContent title="Доп. информация" icon="f7--captions-bubble">
           <section class="flex flex-col flex-1 gap-2">
-            <CheckBlock v-model="groupCheck" :icon="'f7--person-2'" label="От лица Группы" />
+            <CheckBlock
+              v-model="groupCheck"
+              :icon="'f7--person-2'"
+              label="От лица Группы"
+              desc="Укажите список участников"
+              class="w-full"
+            />
             <Textarea class="resize-none min-h-24 text-sm" id="desc" :placeholder="placeholder" />
           </section>
         </CardTitledContent>
@@ -146,23 +150,46 @@ const selam = ref()
           icon="f7--creditcard"
         >
           <section class="flex flex-1 flex-col gap-2">
-            <FormInput
+            <FormInputAmount
               label="Сумма пожертвования"
               type="text"
               placeholder="100,00"
               name="amount"
               :icon="'f7--money-rubl'"
               :schema="donorSchema.amount"
+              :format="{
+                currency: 'RUB',
+                currencyDisplay: CurrencyDisplay.hidden,
+                precision: 2,
+              }"
+              ref="inputAmount"
             />
-            <RadioList v-model="selam">
+            <RadioList>
               <template #item="{ select, selected }">
                 <RadioButton
                   v-for="a in amounts"
                   :key="a"
-                  :onSelect="() => select(a)"
-                  :selected="selected === a"
+                  :onSelect="() => toggleAmountSelect(select(a))"
+                  :selected="selected === a && equel(inputAmount.getFormat(), a)"
                 >
                   {{ a }}
+                </RadioButton>
+              </template>
+            </RadioList>
+
+            <Label class="text-base w-fit"> Способ оплаты </Label>
+
+            <RadioList v-model="selectedPaymentType">
+              <template #item="{ select, selected }">
+                <RadioButton
+                  v-for="p in payments"
+                  :key="p.type"
+                  :onSelect="() => select(p.type)"
+                  :selected="selected === p.type"
+                  :class="'min-w-0 !w-full flex flex-col h-full !flex-1'"
+                >
+                  <img :src="'/public/ico/' + p.icon" :alt="p.type" width="24" height="24" />
+                  {{ p.name }}
                 </RadioButton>
               </template>
             </RadioList>

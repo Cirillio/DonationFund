@@ -12,7 +12,7 @@ const { links, activeLink } = useHeaderLinks()
       <ul class="flex w-fit gap-2">
         <li v-for="link in links" :key="link.name">
           <RouterLink :to="link.url">
-            <Button :variant="link.name === activeLink?.name ? 'default' : 'outline'">
+            <Button :variant="link.name === activeLink?.name ? 'ring' : 'outline'">
               <span class="iconify size-5" :class="link.icon"></span>
               <span>{{ link.title }}</span>
             </Button>

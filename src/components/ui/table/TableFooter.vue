@@ -8,15 +8,10 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div
-    data-slot="card"
-    :class="
-      cn(
-        'backdrop-blur-xs bg-card/95 text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
-        props.class
-      )
-    "
+  <tfoot
+    data-slot="table-footer"
+    :class="cn('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', props.class)"
   >
     <slot />
-  </div>
+  </tfoot>
 </template>

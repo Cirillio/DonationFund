@@ -8,11 +8,12 @@ defineProps({
     type: Function,
     required: true,
   },
+  class: String,
 })
 </script>
 
 <template>
-  <Button @click="onSelect" size="sm" :variant="selected ? 'secondary' : 'ghost'" type="button">
+  <Button :class="class" @click="onSelect" :variant="selected ? 'ring' : 'ghost'" type="button">
     <slot />
   </Button>
 </template>

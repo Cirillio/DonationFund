@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import Form from '@/components/DonorForm/index.vue'
-
+import Form from '@/components/DonationForm/index.vue'
+import DonationForm from '@/components/DonationForm/DonationForm.vue'
 import { Check, Circle, Dot } from 'lucide-vue-next'
+import { ref } from 'vue'
 
 const steps = [
   {
@@ -21,12 +22,14 @@ const steps = [
       'Start collaborating with your team by inviting them to join your account. You can skip this step and invite them later',
   },
 ]
+
+const donationForm = ref()
 </script>
 
 <template>
-  <main class="max-w-[896px] min-w-0 flex w-full">
+  <main class="max-w-[786px] min-w-0 flex w-full">
     <Card class="grid gap-4 grid-cols-5 min-w-0 w-full px-4">
-      <div class="border border-input col-span-2 rounded-lg p-2">
+      <!-- <div class="border border-input col-span-2 rounded-lg p-2">
         <Stepper
           orientation="vertical"
           class="mx-auto flex w-full max-w-md flex-col justify-start gap-10"
@@ -74,8 +77,30 @@ const steps = [
             </div>
           </StepperItem>
         </Stepper>
+      </div> -->
+
+      <div v-if="donationForm" class="col-span-2 col-start-1 border">
+        <Table>
+          <TableHeader>
+            <TableRow class="flex items-center justify-center text-center">
+              <TableHead class="flex-1 flex items-center justify-center"> FieldName </TableHead>
+              <TableHead class="flex-1 flex items-center justify-center"> FieldValue </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow
+              class="flex items-center justify-center text-center"
+              v-for="(value, key) in donationForm.fields"
+              :key="key"
+            >
+              <TableCell class="flex-1 text-start pl-4">{{ key }}</TableCell>
+              <TableCell class="flex-1 text-start">{{ value }}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </div>
-      <Form class="col-span-3 col-start-3" />
+
+      <DonationForm ref="donationForm" class="col-span-3 col-start-3" />
     </Card>
   </main>
 </template>

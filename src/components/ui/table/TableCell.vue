@@ -8,15 +8,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div
-    data-slot="card"
+  <td
+    data-slot="table-cell"
     :class="
       cn(
-        'backdrop-blur-xs bg-card/95 text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
-        props.class
+        'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
+        props.class,
       )
     "
   >
     <slot />
-  </div>
+  </td>
 </template>
