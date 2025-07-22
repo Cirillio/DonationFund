@@ -1,27 +1,27 @@
 <script lang="ts" setup>
-import Form from '@/components/DonationForm/index.vue'
+// import Form from '@/components/DonationForm/index.vue'
 import DonationForm from '@/components/DonationForm/DonationForm.vue'
-import { Check, Circle, Dot } from 'lucide-vue-next'
+// import { Check, Circle, Dot } from 'lucide-vue-next'
 import { ref } from 'vue'
 
-const steps = [
-  {
-    step: 1,
-    title: 'Контакты',
-    description: 'Пожалуйста, введите свои контактные данные, чтобы мы могли связаться с вами',
-  },
-  {
-    step: 2,
-    title: 'Дополнительная информация',
-    description: 'A few details about your company will help us personalize your experience',
-  },
-  {
-    step: 3,
-    title: 'Invite your team',
-    description:
-      'Start collaborating with your team by inviting them to join your account. You can skip this step and invite them later',
-  },
-]
+// const steps = [
+//   {
+//     step: 1,
+//     title: 'Контакты',
+//     description: 'Пожалуйста, введите свои контактные данные, чтобы мы могли связаться с вами',
+//   },
+//   {
+//     step: 2,
+//     title: 'Дополнительная информация',
+//     description: 'A few details about your company will help us personalize your experience',
+//   },
+//   {
+//     step: 3,
+//     title: 'Invite your team',
+//     description:
+//       'Start collaborating with your team by inviting them to join your account. You can skip this step and invite them later',
+//   },
+// ]
 
 const donationForm = ref()
 </script>

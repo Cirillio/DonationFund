@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { IModelInput } from '@/interfaces/IVModelInput'
 import { useField } from 'vee-validate'
 import { computed } from 'vue'
@@ -51,4 +51,4 @@ const valid = computed(() => errors.value.length === 0)
       >
     </div>
   </div>
-</template>
+</template> -->

@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { z } from 'zod'
 import { useForm } from 'vee-validate'
@@ -47,11 +47,10 @@ const payments = [
 ]
 
 const selectedPaymentType = ref()
-</script>
-
-<template>
+</script> -->
+<!-- <template>
   <div class="flex flex-col gap-2">
-    <CardHeader class="">
+    <CardHeader>
       <CardTitle class="text-2xl">Форма пожертвования</CardTitle>
       <CardDescription class="text-base">Важен даже самый маленький вклад.</CardDescription>
     </CardHeader>
@@ -64,7 +63,6 @@ const selectedPaymentType = ref()
           icon="f7--person"
         >
           <section class="flex flex-col flex-1 gap-2">
-            <!-- Phone -->
             <FormInput
               label="Телефон"
               type="tel"
@@ -110,7 +108,6 @@ const selectedPaymentType = ref()
                 </DropdownMenu>
               </template>
             </FormInput>
-            <!-- Name -->
             <FormInput
               label="Имя (Пустое поле = аноним)"
               type="text"
@@ -119,7 +116,6 @@ const selectedPaymentType = ref()
               icon="f7--person"
               :schema="donorSchema.username"
             />
-            <!-- Birth -->
             <FormInput
               label="Дата рождения"
               placeholder=""
@@ -200,7 +196,6 @@ const selectedPaymentType = ref()
       </form>
     </CardContent>
     <Separator class="bg-muted-foreground/25" />
-
-    <CardFooter class="flex flex-col items-end gap-4 px-6 pb-2"> </CardFooter>
   </div>
 </template>
+ -->

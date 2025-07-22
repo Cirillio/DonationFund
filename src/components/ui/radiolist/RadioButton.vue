@@ -1,19 +1,24 @@
 <script lang="ts" setup>
+import { PropType } from 'vue'
+
 defineProps({
   selected: {
     type: Boolean,
     default: false,
   },
   onSelect: {
-    type: Function,
+    type: Function as PropType<(...args: any[]) => void>,
     required: true,
   },
-  class: String,
+  _class: {
+    type: String,
+    default: '',
+  },
 })
 </script>
 
 <template>
-  <Button :class="class" @click="onSelect" :variant="selected ? 'ring' : 'ghost'" type="button">
+  <Button :class="_class" @click="onSelect" :variant="selected ? 'ring' : 'ghost'" type="button">
     <slot />
   </Button>
 </template>
