@@ -8,6 +8,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+<<<<<<< HEAD
+=======
+    Button: typeof import('./src/components/ui/button/Button.vue')['default']
+>>>>>>> form
     Card: typeof import('./src/components/ui/card/Card.vue')['default']
     CardAction: typeof import('./src/components/ui/card/CardAction.vue')['default']
     CardContent: typeof import('./src/components/ui/card/CardContent.vue')['default']
@@ -32,6 +36,10 @@ declare module 'vue' {
     DropdownMenuSubContent: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubContent.vue')['default']
     DropdownMenuSubTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubTrigger.vue')['default']
     DropdownMenuTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuTrigger.vue')['default']
+<<<<<<< HEAD
+=======
+    Form: typeof import('./src/components/DonorForm/Form.vue')['default']
+>>>>>>> form
     FormControl: typeof import('./src/components/ui/form/FormControl.vue')['default']
     FormDescription: typeof import('./src/components/ui/form/FormDescription.vue')['default']
     FormItem: typeof import('./src/components/ui/form/FormItem.vue')['default']
@@ -39,6 +47,12 @@ declare module 'vue' {
     FormMessage: typeof import('./src/components/ui/form/FormMessage.vue')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     Label: typeof import('./src/components/ui/label/Label.vue')['default']
+<<<<<<< HEAD
+=======
+    MainHeader: typeof import('./src/components/Header/MainHeader.vue')['default']
+    PersonalContent: typeof import('./src/components/DonorForm/PersonalContent.vue')['default']
+    PhoneInput: typeof import('./src/components/form/PhoneInput.vue')['default']
+>>>>>>> form
     RadioButton: typeof import('./src/components/ui/radiolist/RadioButton.vue')['default']
     RadioList: typeof import('./src/components/ui/radiolist/RadioList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -76,6 +90,10 @@ declare module 'vue' {
     TabsList: typeof import('./src/components/ui/tabs/TabsList.vue')['default']
     TabsTrigger: typeof import('./src/components/ui/tabs/TabsTrigger.vue')['default']
     Textarea: typeof import('./src/components/ui/textarea/Textarea.vue')['default']
+<<<<<<< HEAD
+=======
+    TextInput: typeof import('./src/components/form/TextInput.vue')['default']
+>>>>>>> form
     ThemeToggler: typeof import('./src/components/ui/theme/ThemeToggler.vue')['default']
   }
 }
