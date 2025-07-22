@@ -17,7 +17,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createMemoryHistory(import.meta.env.BASE_URL),
   routes,
 })
 

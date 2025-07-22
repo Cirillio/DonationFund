@@ -268,7 +268,12 @@ defineExpose({ fields: donationForm.values })
                     :onSelect="() => setValue(select(p.type), true)"
                     :selected="p.type === selected"
                   >
-                    <img :src="'/public/ico/' + p.icon" :alt="p.type" width="24" height="24" />
+                    <img
+                      :src="'../../../public/ico/' + p.icon"
+                      :alt="p.type"
+                      width="24"
+                      height="24"
+                    />
 
                     {{ p.name }}
                   </RadioButton>
