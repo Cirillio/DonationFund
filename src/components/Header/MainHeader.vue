@@ -14,13 +14,10 @@ const { links, activeLink } = useHeaderLinks()
     <nav class="flex">
       <ul class="flex w-fit gap-2">
         <li v-for="link in links" :key="link.name">
-          <Button
-            @click="() => router.push(link.url)"
-            :variant="link.name === activeLink?.name ? 'outline' : 'ghost'"
-          >
+          <button :disabled="activeLink?.name === link.name" @click="() => router.push(link.url)">
             <span class="iconify size-5" :class="link.icon"></span>
             <span>{{ link.title }}</span>
-          </Button>
+          </button>
         </li>
       </ul>
     </nav>
