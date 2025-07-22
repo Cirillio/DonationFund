@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { useHeaderLinks } from './headerLinks'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 const { links, activeLink } = useHeaderLinks()
 </script>
 
@@ -11,12 +14,13 @@ const { links, activeLink } = useHeaderLinks()
     <nav class="flex">
       <ul class="flex w-fit gap-2">
         <li v-for="link in links" :key="link.name">
-          <RouterLink :to="link.url">
-            <Button :variant="link.name === activeLink?.name ? 'ring' : 'outline'">
-              <span class="iconify size-5" :class="link.icon"></span>
-              <span>{{ link.title }}</span>
-            </Button>
-          </RouterLink>
+          <Button
+            @click="() => router.push(link.url)"
+            :variant="link.name === activeLink?.name ? 'outline' : 'ghost'"
+          >
+            <span class="iconify size-5" :class="link.icon"></span>
+            <span>{{ link.title }}</span>
+          </Button>
         </li>
       </ul>
     </nav>
