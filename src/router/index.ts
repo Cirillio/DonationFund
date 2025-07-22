@@ -1,18 +1,21 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import StatsView from '../views/StatsView.vue'
-import NewsView from '../views/NewsView.vue'
+// Не импортируйте компоненты здесь, если они будут загружаться лениво!
+// import StatsView from '../views/StatsView.vue'
+// import NewsView from '../views/NewsView.vue'
 
 const routes = [
   { path: '/', name: 'donat', component: () => import('../views/DonateView.vue') },
   {
     path: '/stats',
     name: 'stats',
-    component: () => StatsView,
+    // Правильная ленивая загрузка: используйте import() как функцию
+    component: () => import('../views/StatsView.vue'),
   },
   {
     path: '/news',
     name: 'news',
-    component: () => NewsView,
+    // Правильная ленивая загрузка
+    component: () => import('../views/NewsView.vue'),
   },
 ]
 
