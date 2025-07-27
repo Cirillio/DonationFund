@@ -16,7 +16,7 @@ const select = (value: T): T | null => {
   return newValue
 }
 
-defineExpose({ select: (s: T) => select(s) })
+defineExpose({ select: (s: T) => select(s), selected: internalSelectedValue })
 </script>
 
 <template>

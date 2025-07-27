@@ -15,7 +15,7 @@ defineProps<InputProps>()
     <Label v-if="label" :for="name" class="pb-1.25 text-base w-fit">{{ label }}</Label>
     <div class="relative flex gap-2">
       <Input
-        class="!text-base aria-invalid:hover:ring-destructive/20 aria-invalid:hover:ring-[3px] aria-invalid:hover:border-destructive"
+        class="!text-base"
         :class="{ 'pl-9': icon }"
         :type="type"
         :id="name"

@@ -153,7 +153,7 @@
   }
 
   .light-background {
-    background-image: url('../public/img/bg-main1.jpg');
+    background-image: url('/img/bg-main1.jpg');
     background-repeat: no-repeat;
     background-size: cover;
   }

@@ -10,7 +10,7 @@ import { CurrencyDisplay } from 'vue-currency-input'
 import { useCurrencyInput } from 'vue-currency-input'
 import { useCurrency } from '@/composables/useCurrency'
 import { defineExpose } from 'vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 const { currencyToNumber } = useCurrency()
 
 const { selected: phoneMaskSelected, currentMask: phoneMask } = useCodeSelector('RU')
@@ -26,14 +26,18 @@ const donationForm = useForm({
 
 const descPlaceholders = ['Можете указать пожелания', 'Укажите список участников']
 
-const { inputRef: currencyRef, formattedValue: currencyFormatted } = useCurrencyInput({
+const {
+  inputRef: currencyRef,
+  formattedValue: currencyFormatted,
+  numberValue: currencyNumber,
+  setValue: currencySet,
+} = useCurrencyInput({
   currency: 'RUB',
   currencyDisplay: CurrencyDisplay.hidden,
   precision: 2,
 })
 
 const amountsRef = ref()
-
 const amountExamples = ['100,00', '500,00', '1 000,00', '2 500,00', '5 000,00', '10 000,00']
 
 const payments = [
@@ -49,11 +53,18 @@ const payments = [
   },
 ]
 
+watch(currencyNumber, (_new) => {
+  const newAmount = _new || 0
+  donationForm.resetField('donorAmount')
+  donationForm.setFieldValue('donorAmount', newAmount, false)
+  if (currencyToNumber(amountsRef.value.selected) !== newAmount) amountsRef.value.select(undefined)
+})
+
 defineExpose({ fields: donationForm.values })
 </script>
 
 <template>
-  <form class="flex flex-col w-full gap-x-6 gap-y-2 flex-1 min-w-0">
+  <form @submit.prevent="() => {}" class="flex flex-col w-full gap-x-6 gap-y-2 flex-1 min-w-0">
     <CardTitledContent
       icon="f7--person"
       title="Личная информация"
@@ -68,7 +79,7 @@ defineExpose({ fields: donationForm.values })
           <FormItem v-auto-animate>
             <FormControl>
               <CustomInput
-                :validField="meta.dirty ? meta.valid : undefined"
+                :aria-valid="meta.dirty && meta.validated && !meta.pending ? meta.valid : undefined"
                 v-mask="phoneMask"
                 v-bind="componentField"
                 icon="f7--phone"
@@ -116,8 +127,8 @@ defineExpose({ fields: donationForm.values })
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
-                </template></CustomInput
-              >
+                </template>
+              </CustomInput>
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -130,7 +141,7 @@ defineExpose({ fields: donationForm.values })
           <FormItem v-auto-animate>
             <FormControl>
               <CustomInput
-                :validField="meta.dirty ? meta.valid : undefined"
+                :aria-valid="meta.dirty && meta.validated && !meta.pending ? meta.valid : undefined"
                 v-bind="componentField"
                 icon="f7--person"
                 label="Имя"
@@ -150,7 +161,7 @@ defineExpose({ fields: donationForm.values })
           <FormItem v-auto-animate>
             <FormControl>
               <CustomInput
-                :validField="meta.dirty ? meta.valid : undefined"
+                :aria-valid="meta.dirty && meta.validated && !meta.pending ? meta.valid : undefined"
                 v-bind="componentField"
                 icon="f7--calendar"
                 label="Дата рождения"
@@ -213,17 +224,12 @@ defineExpose({ fields: donationForm.values })
       desc="Минимальная сумма пожертвования 100 рублей"
     >
       <div class="flex flex-col w-full gap-2">
-        <FormField v-slot="{ handleBlur, setValue }" name="donorAmount">
+        <FormField v-slot="{ field, meta }" name="donorAmount">
           <FormItem v-auto-animate>
             <FormControl>
               <CustomInput
-                @input="
-                  () => {
-                    setValue(currencyToNumber(currencyFormatted) || 0, false)
-                    amountsRef.select(undefined)
-                  }
-                "
-                @blur="handleBlur"
+                :aria-valid="meta.dirty && meta.validated && !meta.pending ? meta.valid : undefined"
+                @blur="(e: Event) => (meta.dirty ? field.onBlur(e) : undefined)"
                 ref="currencyRef"
                 :value="currencyFormatted"
                 icon="f7--money-rubl"
@@ -239,13 +245,7 @@ defineExpose({ fields: donationForm.values })
                   <RadioButton
                     v-for="a in amountExamples"
                     :key="a"
-                    :onSelect="
-                      () => {
-                        const newSelected = select(a) as string | null
-                        setValue(currencyToNumber(newSelected) || 0, true)
-                        currencyFormatted = newSelected
-                      }
-                    "
+                    :onSelect="() => currencySet(currencyToNumber(select(a) as string | null))"
                     :selected="a === selected"
                   >
                     {{ a }}
@@ -263,17 +263,13 @@ defineExpose({ fields: donationForm.values })
               <RadioList>
                 <template #item="{ select, selected }">
                   <RadioButton
+                    class="flex-1 h-16 gap-2"
                     v-for="p in payments"
                     :key="p.type"
                     :onSelect="() => setValue(select(p.type), true)"
                     :selected="p.type === selected"
                   >
-                    <img
-                      :src="'../../../public/ico/' + p.icon"
-                      :alt="p.type"
-                      width="24"
-                      height="24"
-                    />
+                    <img :src="'/ico/' + p.icon" :alt="p.type" width="24" height="24" />
 
                     {{ p.name }}
                   </RadioButton>
