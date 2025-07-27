@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // import Form from '@/components/DonationForm/index.vue'
-import DonationForm from '@/components/DonationForm/DonationForm.vue'
+import DonationForm from '@/components/forms/DonationForm.vue'
 // import { Check, Circle, Dot } from 'lucide-vue-next'
 import { ref } from 'vue'
 

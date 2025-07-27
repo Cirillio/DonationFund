@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useHeaderLinks } from './HeaderLinks'
+import { useHeaderLinks } from '../../composables/useHeaderLinks'
 const { links, activeLink } = useHeaderLinks()
 </script>
 

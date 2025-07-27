@@ -1,12 +1,12 @@
-import type { IHeaderLink } from '@/interfaces/IHeaderLink'
+import type { NavLink } from '@/types/navigation'
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { headerLinks } from '@/data/header.links.data'
+import { headerLinks } from '@/data/navigation.data'
 
 export function useHeaderLinks() {
   const route = useRoute()
 
-  const activeLink = ref<IHeaderLink>()
+  const activeLink = ref<NavLink>()
 
   watch(
     () => route.name,

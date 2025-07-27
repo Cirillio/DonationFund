@@ -15,7 +15,7 @@ defineProps({
   <div class="flex flex-col gap-2 flex-1">
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1.5">
-        <div class="flex gap-2">
+        <div class="flex gap-1">
           <span class="iconify my-auto size-7 dark:text-primary" :class="[icon]"></span>
           <span class="text-xl">{{ title }}</span>
         </div>
