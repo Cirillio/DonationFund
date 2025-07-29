@@ -24,7 +24,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
     data-slot="input"
     :class="
       cn(
-        'flex h-10 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-all outline-none',
+        'flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base transition-all outline-none',
         'light-bordered file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground',
         'dark:bg-input/30',
 
@@ -38,8 +38,6 @@ const modelValue = useVModel(props, 'modelValue', emits, {
         '[&[aria-invalid=true]]:border-destructive',
         '[&[aria-invalid=true]]:ring-destructive/20 [&[aria-invalid=true]]:hover:border-destructive',
         'dark:[&[aria-invalid=true]]:ring-destructive/20',
-
-        'md:text-sm',
 
         props.class
       )

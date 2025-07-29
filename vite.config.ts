@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 import Components from 'unplugin-vue-components/vite'
 import vueDevTools from 'vite-plugin-vue-devtools'
-// https://vitejs.dev/config/
+import { veeValidateResolver } from './src/resolvers/vee-validate.resolver'
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -13,6 +14,7 @@ export default defineConfig({
     Components({
       dirs: ['src/components/ui'],
       dts: true,
+      resolvers: [veeValidateResolver()],
     }),
   ],
   resolve: {

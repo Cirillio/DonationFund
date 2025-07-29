@@ -1,4 +1,4 @@
-import { NavLink } from '@/types/navigation'
+import { NavLink } from '@/types/navigation.type'
 import { ref } from 'vue'
 
 export const headerLinks = ref<NavLink[]>([

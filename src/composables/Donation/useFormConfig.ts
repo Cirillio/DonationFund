@@ -1,11 +1,10 @@
 import { useCodeSelector } from '@/composables/usePhonecodeSelector'
 import { useCurrencyInput, CurrencyInputOptions } from 'vue-currency-input'
-import type { CodeSelector } from '@/types/codeSelector'
-import type { Payment } from '@/types/payment'
-interface FormConfig {
+import type { CodeSelector } from '@/types/codeSelector.type'
+
+type FormConfig = {
   phoneSelector: CodeSelector
   currencyOptions: CurrencyInputOptions
-  paymentTypes: Payment[]
 }
 
 export function useFormConfig(config: FormConfig) {
@@ -27,6 +26,5 @@ export function useFormConfig(config: FormConfig) {
     currencyFormatted,
     currencyNumber,
     currencySet,
-    paymentTypes: config.paymentTypes,
   }
 }

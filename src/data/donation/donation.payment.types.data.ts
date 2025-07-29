@@ -1,4 +1,4 @@
-import { Payment } from '@/types/payment'
+import { Payment } from '@/types/payment.type'
 import sbp_icon from '@/assets/icons/payment/SBP.svg'
 import bankcard_icon from '@/assets/icons/payment/bankcard.svg'
 

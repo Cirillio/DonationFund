@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
-import type { PhoneSpec } from '@/types/number'
-import type { CodeSelector } from '@/types/codeSelector'
+import type { PhoneSpec } from '@/types/number.type'
+import type { CodeSelector } from '@/types/codeSelector.type'
 
 const useCodeSelector = (params: CodeSelector) => {
   const selected = ref<PhoneSpec>(

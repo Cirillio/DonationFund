@@ -1,4 +1,4 @@
-import type { PhoneSpec } from '@/types/number'
+import type { PhoneSpec } from '@/types/number.type'
 
 export const phoneSpecs: PhoneSpec[] = [
   {

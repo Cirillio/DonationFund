@@ -36,6 +36,7 @@ declare module 'vue' {
     Form: typeof import('vee-validate')['Form']
     FormControl: typeof import('./src/components/ui/form/FormControl.vue')['default']
     FormDescription: typeof import('./src/components/ui/form/FormDescription.vue')['default']
+    FormField: typeof import('vee-validate')['Field']
     FormItem: typeof import('./src/components/ui/form/FormItem.vue')['default']
     FormLabel: typeof import('./src/components/ui/form/FormLabel.vue')['default']
     FormMessage: typeof import('./src/components/ui/form/FormMessage.vue')['default']

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useHeaderLinks } from '../../composables/useHeaderLinks'
-const { links, activeLink } = useHeaderLinks()
+import { useNavLinks } from '../../composables/useNavLinks'
+const { links, activeLink } = useNavLinks()
 </script>
 
 <template>

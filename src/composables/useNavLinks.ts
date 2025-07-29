@@ -1,9 +1,9 @@
-import type { NavLink } from '@/types/navigation'
+import type { NavLink } from '@/types/navigation.type'
 import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { headerLinks } from '@/data/navigation.data'
 
-export function useHeaderLinks() {
+export function useNavLinks() {
   const route = useRoute()
 
   const activeLink = ref<NavLink>()
