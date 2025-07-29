@@ -161,4 +161,8 @@
   .light-bordered {
     @apply border border-input backdrop-blur-lg bg-popover/10 hover:bg-popover/20 active:bg-popover/20  hover:border-muted-foreground/50 shadow-xs hover:text-accent-foreground;
   }
+
+  .ringed {
+    @apply border border-ring bg-popover/30 ring-ring/50 ring-[3px] backdrop-blur-lg shadow-xs;
+  }
 }

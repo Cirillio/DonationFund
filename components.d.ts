@@ -33,6 +33,7 @@ declare module 'vue' {
     DropdownMenuSubContent: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubContent.vue')['default']
     DropdownMenuSubTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuSubTrigger.vue')['default']
     DropdownMenuTrigger: typeof import('./src/components/ui/dropdown-menu/DropdownMenuTrigger.vue')['default']
+    Form: typeof import('vee-validate')['Form']
     FormControl: typeof import('./src/components/ui/form/FormControl.vue')['default']
     FormDescription: typeof import('./src/components/ui/form/FormDescription.vue')['default']
     FormField: typeof import('vee-validate')['Field']
@@ -79,5 +80,6 @@ declare module 'vue' {
     TabsTrigger: typeof import('./src/components/ui/tabs/TabsTrigger.vue')['default']
     Textarea: typeof import('./src/components/ui/textarea/Textarea.vue')['default']
     ThemeToggler: typeof import('./src/components/ui/theme/ThemeToggler.vue')['default']
+    TypedInput: typeof import('./src/components/ui/input/TypedInput.vue')['default']
   }
 }

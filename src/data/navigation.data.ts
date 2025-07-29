@@ -1,7 +1,7 @@
-import { IHeaderLink } from '@/interfaces/IHeaderLink'
+import { NavLink } from '@/types/navigation.type'
 import { ref } from 'vue'
 
-export const headerLinks = ref<IHeaderLink[]>([
+export const headerLinks = ref<NavLink[]>([
   {
     name: 'donat',
     title: 'Пожертвования',

@@ -1,4 +1,4 @@
-interface ICountry {
+type PhoneSpec = {
   id: string
   name: string
   mask: string
@@ -6,4 +6,4 @@ interface ICountry {
   code: string
 }
 
-export type { ICountry }
+export type { PhoneSpec }

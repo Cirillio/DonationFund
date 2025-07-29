@@ -1,6 +1,6 @@
-import type { ICountry } from '@/interfaces/ICountry'
+import type { PhoneSpec } from '@/types/number.type'
 
-export const countries: ICountry[] = [
+export const phoneSpecs: PhoneSpec[] = [
   {
     id: 'RU',
     icon: '🇷🇺',
@@ -15,5 +15,4 @@ export const countries: ICountry[] = [
     code: '+992',
     mask: '+992 ## ### ## ##',
   },
-  // ... другие страны
 ]

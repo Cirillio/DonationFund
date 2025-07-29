@@ -10,15 +10,16 @@ defineProps({
     type: Function as PropType<(...args: any[]) => void>,
     required: true,
   },
-  _class: {
-    type: String,
-    default: '',
+
+  size: {
+    type: String as PropType<'sm' | 'default' | 'lg' | 'icon'>,
+    default: 'default',
   },
 })
 </script>
 
 <template>
-  <Button :class="_class" @click="onSelect" :variant="selected ? 'ring' : 'ghost'" type="button">
+  <Button :size="size" @click="onSelect" :variant="selected ? 'ring' : 'outline'" type="button">
     <slot />
   </Button>
 </template>

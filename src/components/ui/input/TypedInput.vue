@@ -15,7 +15,6 @@ defineProps<InputProps>()
     <Label v-if="label" :for="name" class="pb-1.25 text-base w-fit">{{ label }}</Label>
     <div class="relative flex gap-2">
       <Input
-        class="!text-base"
         :class="{ 'pl-9': icon }"
         :type="type"
         :id="name"
@@ -25,9 +24,9 @@ defineProps<InputProps>()
       />
       <span
         v-if="icon"
-        class="absolute start-0 inset-y-0 text-black flex items-center justify-center h-full px-2"
+        class="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center"
       >
-        <span class="iconify size-6 text-muted-foreground" :class="icon"></span>
+        <span class="iconify size-5 text-muted-foreground" :class="icon"></span>
       </span>
 
       <slot name="actionButton" />

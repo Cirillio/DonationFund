@@ -1,4 +1,4 @@
-interface IHeaderLink {
+type NavLink = {
   name: string
   title: string
   url: string
@@ -6,4 +6,4 @@ interface IHeaderLink {
   active: boolean
 }
 
-export type { IHeaderLink }
+export type { NavLink }

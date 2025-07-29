@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import { isValidPhoneNumber } from 'libphonenumber-js'
+import { PaymentType } from '@/enums/payment'
 
-const donorSchema = {
+const donorSchema = z.object({
   donorPhone: z
     .string('Пожалуйста, укажите номер телефона.')
     .nonempty('Телефон обязателен для заполнения.')
@@ -14,11 +15,11 @@ const donorSchema = {
     .trim()
     .refine((value) => value.trim().length === 0 || value.trim().length >= 3, 'Хотя бы 3 символа.')
     .max(50, 'Имя должно быть не длиннее 50 символов.')
-    .regex(/^[\p{L}\s-]*$/u, 'Имя может содержать только буквы, пробелы и тире.'),
+    .regex(/^[\p{L}\s-]*$/u, 'Имя может содержать только буквы, пробелы и тире.')
+    .optional(),
 
   donorBirth: z.coerce
     .date('Пожалуйста, заполните дату рождения.')
-
     .max(new Date(), 'Дата рождения не может быть в будущем.')
     .refine((date: string | Date) => {
       const today = new Date()
@@ -31,16 +32,15 @@ const donorSchema = {
       return date >= hundredYearsAgo
     }, 'Возраст не может быть больше 100 лет.'),
 
-  donorGroup: z.boolean(),
-  donorDesc: z.string().trim(),
+  donorGroup: z.boolean().optional(),
+  donorDesc: z.string().trim().optional(),
 
   donorAmount: z
     .number('Пожалуйста, укажите сумму пожертвования.')
     .min(100, 'Минимальная сумма пожертвования 100 рублей.'),
 
-  donorPaymentType: z
-    .string('Пожалуйста, укажите способ оплаты.')
-    .nonempty('Тип платежа обязателен для выбора.'),
-}
+  donorPaymentType: z.enum(PaymentType, 'Пожалуйста, укажите способ оплаты.'),
+})
 
 export default donorSchema
+export type IDonorSchema = z.infer<typeof donorSchema>
