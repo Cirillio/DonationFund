@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="T">
-import { ref, watch } from 'vue'
+import { ref, watch, computed, onMounted, onBeforeMount } from 'vue'
 import { CurrencyDisplay } from 'vue-currency-input'
 import { useFormConfig } from '@/composables/Donation/useFormConfig'
 import { useDonationForm } from '@/composables/Donation/useDonationForm'
@@ -10,6 +10,7 @@ import {
   phoneSpecs,
   placeholders,
 } from '@/data/donation'
+import { useStepperStore } from '@/stores/stepper.store'
 
 const {
   phoneMask,
@@ -47,11 +48,53 @@ watch(currencyNumber, (_new) => {
   if (amountsRef.value.selected !== newAmount && amountsRef.value)
     amountsRef.value.select(undefined)
 })
+
+const stepper = useStepperStore()
+
+const personalCompleted = computed(() => {
+  return (
+    donationForm.isFieldValid('donorPhone') &&
+    donationForm.isFieldValid('donorName') &&
+    donationForm.isFieldValid('donorBirth')
+  )
+})
+
+const paymentCompleted = computed(() => {
+  return donationForm.isFieldValid('donorPaymentType') && donationForm.isFieldValid('donorAmount')
+})
+
+stepper.initStepper({
+  steps: [
+    {
+      name: 'personal',
+      required: true,
+      completed: personalCompleted,
+      info: {},
+    },
+    {
+      name: 'additional',
+      required: false,
+      completed: false,
+      info: {},
+    },
+    {
+      name: 'payment',
+      required: true,
+      completed: paymentCompleted,
+      info: {},
+    },
+  ],
+})
 </script>
 
 <template>
-  <form @submit.prevent="() => {}" class="flex flex-col w-full gap-x-6 gap-y-2 flex-1 min-w-0">
+  <form
+    v-auto-animate
+    @submit.prevent="() => {}"
+    class="flex flex-col w-full gap-x-6 gap-y-2 flex-1 min-w-0"
+  >
     <CardTitledContent
+      v-if="stepper.currentStep === 0"
       icon="f7--person"
       title="Личная информация"
       desc="Пожалуйста, укажите свою личную информацию"
@@ -62,7 +105,7 @@ watch(currencyNumber, (_new) => {
           :validate-on-blur="!donationForm.isFieldDirty"
           name="donorPhone"
         >
-          <FormItem v-auto-animate class="gap-0">
+          <FormItem class="gap-0">
             <FormControl>
               <TypedInput
                 v-mask="phoneMask"
@@ -124,7 +167,7 @@ watch(currencyNumber, (_new) => {
           :validate-on-blur="!donationForm.isFieldDirty"
           name="donorName"
         >
-          <FormItem v-auto-animate class="gap-0">
+          <FormItem class="gap-0">
             <FormControl>
               <TypedInput
                 v-bind="componentField"
@@ -143,7 +186,7 @@ watch(currencyNumber, (_new) => {
           :validate-on-blur="!donationForm.isFieldDirty"
           name="donorBirth"
         >
-          <FormItem v-auto-animate class="gap-0">
+          <FormItem class="gap-0">
             <FormControl>
               <TypedInput
                 v-bind="componentField"
@@ -160,6 +203,7 @@ watch(currencyNumber, (_new) => {
     </CardTitledContent>
 
     <CardTitledContent
+      v-if="stepper.currentStep === 1"
       icon="f7--gear-alt"
       title="Дополнительная информация"
       desc="Укажите что считаете важным"
@@ -203,6 +247,7 @@ watch(currencyNumber, (_new) => {
     </CardTitledContent>
 
     <CardTitledContent
+      v-if="stepper.currentStep === 2"
       icon="f7--creditcard"
       title="Оплата"
       desc="Минимальная сумма пожертвования 100 рублей"
