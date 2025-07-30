@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 flex-1">
+  <div class="flex flex-col gap-4 flex-1">
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1.5">
         <div class="flex gap-1">
