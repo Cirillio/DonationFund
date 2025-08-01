@@ -25,7 +25,7 @@ const check = computed({
 <template>
   <Button
     @click="check = !check"
-    class="group !h-fit gap-2 !py-2 duration-200"
+    class="group !h-9 gap-2 !py-2 px-2 duration-150"
     :variant="check ? 'ring' : 'outline'"
     type="button"
     size="sm"

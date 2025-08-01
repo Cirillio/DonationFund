@@ -1,9 +1,5 @@
-<script lang="ts" setup>
-import ThemeToggler from '@/components/ui/theme/ThemeToggler.vue'
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <div class="my-auto">
-    <ThemeToggler />
-  </div>
+  <div class="my-auto"></div>
 </template>

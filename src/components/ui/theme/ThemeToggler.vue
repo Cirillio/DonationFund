@@ -1,32 +1,54 @@
 <template>
-  <DropdownMenu class="">
-    <DropdownMenuTrigger as-child>
-      <Button class="aspect-square w-fit p-0" variant="outline">
-        <span 
-          class="h-[1.2rem] iconify f7--moon w-[1.2rem] size-6 p-0 text-lg rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <span 
-          class="absolute iconify f7--sun-min h-[1.2rem] size-6 p-0 text-lg w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        <span class="sr-only">Toggle theme</span>
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent position="start">
-      <DropdownMenuItem @click="mode = 'light'">
-        Light
-      </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'dark'">
-        Dark
-      </DropdownMenuItem>
-      <DropdownMenuItem @click="mode = 'auto'">
-        System
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
+  <Button
+    @click="toggleMode"
+    size="icon"
+    variant="outline"
+    class="relative grid place-items-center overflow-hidden"
+  >
+    <Transition name="rotate-fade" mode="out-in">
+      <F7Icon :key="mode" :class="iconClass" class="size-5" />
+    </Transition>
+  </Button>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useColorMode } from '@vueuse/core'
-import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-// Pass { disableTransition: false } to enable transitions
-const mode = useColorMode({ disableTransition: false })
+
+const mode = useColorMode({ emitAuto: true, disableTransition: false })
+
+const toggleMode = () => {
+  mode.value = mode.value === 'light' ? 'dark' : mode.value === 'dark' ? 'auto' : 'light'
+}
+
+const iconClass = computed(() => {
+  switch (mode.value) {
+    case 'light':
+      return 'f7--sun-min'
+    case 'dark':
+      return 'f7--moon'
+    case 'auto':
+      return 'f7--desktopcomputer'
+    default:
+      return ''
+  }
+})
 </script>
+
+<style scoped>
+.rotate-fade-enter-active,
+.rotate-fade-leave-active {
+  transition: opacity 150ms ease, transform 150ms ease;
+  transform-origin: center;
+}
+
+.rotate-fade-enter-from {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.8);
+}
+
+.rotate-fade-leave-to {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.8);
+}
+</style>

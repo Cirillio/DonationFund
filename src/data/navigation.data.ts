@@ -4,7 +4,7 @@ import { ref } from 'vue'
 export const headerLinks = ref<NavLink[]>([
   {
     name: 'donat',
-    title: 'Пожертвования',
+    title: 'Пожертвование',
     url: '/',
     icon: 'f7--heart',
     active: false,
