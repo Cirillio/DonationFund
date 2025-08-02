@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { isValidPhoneNumber } from 'libphonenumber-js'
+const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/
 
 const blankSchema = z.object({
   blankPhone: z
@@ -17,15 +18,26 @@ const blankSchema = z.object({
     .regex(/^[\p{L}\s-]*$/u, 'Имя может содержать только буквы, пробелы и тире.')
     .optional(),
 
-  blankBirth: z.coerce
-    .date('Пожалуйста, заполните дату рождения.')
-    .max(new Date(), 'Дата рождения не может быть в будущем.')
-    .refine((date: string | Date) => {
+  blankBirth: z
+    .string()
+    .nonempty('Пожалуйста, заполните дату рождения.')
+    .regex(dateRegex, 'Неверный формат даты.')
+    .refine((val) => {
+      const [day, month, year] = val.split('.').map(Number)
+      const date = new Date(year, month - 1, day)
+      // Проверка что дата валидна и соответствует введённой
+      return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+    }, 'Такой даты не существует.')
+    .refine((val) => {
+      const [day, month, year] = val.split('.').map(Number)
+      const date = new Date(year, month - 1, day)
       const today = new Date()
       const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
       return date <= eighteenYearsAgo
     }, 'Вам должно быть не менее 18 лет.')
-    .refine((date: string | Date) => {
+    .refine((val) => {
+      const [day, month, year] = val.split('.').map(Number)
+      const date = new Date(year, month - 1, day)
       const today = new Date()
       const hundredYearsAgo = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate())
       return date >= hundredYearsAgo
@@ -36,3 +48,4 @@ const blankSchema = z.object({
 })
 
 export default blankSchema
+export type BlankSchema = z.output<typeof blankSchema>

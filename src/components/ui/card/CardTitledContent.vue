@@ -12,15 +12,18 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col gap-6 flex-1">
+  <div class="flex flex-col gap-2 md:gap-6 flex-1">
     <div class="flex flex-col gap-2">
       <div class="flex flex-col gap-1.5">
-        <div class="flex gap-2">
-          <span class="iconify border my-auto size-6 dark:text-primary" :class="[icon]"></span>
-          <span class="text-xl">{{ title }}</span>
+        <div class="flex gap-1 md:gap-2">
+          <span
+            class="iconify border my-auto size-5 md:size-6 dark:text-primary"
+            :class="[icon]"
+          ></span>
+          <span class="text-base md:text-xl">{{ title }}</span>
         </div>
         <Separator />
-        <span class="text-sm text-muted-foreground">{{ desc }}</span>
+        <span class="text-xs md:text-sm text-muted-foreground">{{ desc }}</span>
       </div>
     </div>
     <div class="flex h-full">

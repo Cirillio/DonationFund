@@ -2,7 +2,7 @@
 import { ref, computed, defineExpose } from 'vue'
 
 defineProps<{
-  orientation?: 'horizontal' | 'vertical'
+  orientation?: 'horizontal' | 'vertical' | 'wrap'
 }>()
 
 const internalSelectedValue = ref<T | undefined>(undefined)
@@ -26,10 +26,11 @@ defineExpose({ select: (s: T) => select(s), selected: internalSelectedValue })
 <template>
   <div class="grid h-fit no-scrollbar p-1 min-w-0">
     <div
-      class="flex gap-2 flex-wrap w-full min-w-0"
+      class="flex gap-2 w-full min-w-0"
       :class="{
         'flex-col': orientation === 'vertical',
         'flex-row': orientation === 'horizontal',
+        'flex-wrap': orientation === 'wrap',
       }"
     >
       <slot name="item" :select="select" :selected="selected" />

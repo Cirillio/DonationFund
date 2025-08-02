@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref, computed, ComputedRef } from 'vue'
+import { ref, computed, Ref } from 'vue'
 
-type Step = {
+export type Step = {
   name?: string
   required: boolean
-  completed: boolean | ComputedRef<boolean>
+  completed: Ref<boolean>
   info?: any
 }
 
@@ -43,6 +43,12 @@ export const useStepperStore = defineStore('stepper', () => {
     currentStep.value !== undefined ? steps.value[currentStep.value] : undefined
   )
 
+  const completedRatio = computed(() => {
+    const completed = steps.value.filter((s) => s.completed).length
+    const total = steps.value.length
+    return total === 0 ? 0 : completed / total
+  })
+
   const next = () => {
     if (currentStep.value === undefined) throw new Error('Current step is not defined')
     currentStep.value++
@@ -59,6 +65,7 @@ export const useStepperStore = defineStore('stepper', () => {
 
   return {
     initStepper,
+    completedRatio,
     steps,
     currentStep,
     setStepCompleted,

@@ -11,11 +11,13 @@ defineProps<InputProps>()
 </script>
 
 <template>
-  <div class="flex flex-col !flex-1 !duration-300">
-    <Label v-if="label" :for="name" class="pb-1.25 text-base w-fit">{{ label }}</Label>
-    <div class="relative flex gap-2">
+  <div class="flex flex-col !flex-1 !duration-150">
+    <Label v-if="label" :for="name" class="pb-0.25 md:pb-1.25 text-sm md:text-base w-fit">{{
+      label
+    }}</Label>
+    <div class="relative flex gap-1 md:gap-2">
       <Input
-        :class="{ 'pl-9': icon }"
+        :class="{ 'pl-7 md:pl-9': icon }"
         :type="type"
         :id="name"
         :name="name"
@@ -26,7 +28,7 @@ defineProps<InputProps>()
         v-if="icon"
         class="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center"
       >
-        <span class="iconify size-5 text-muted-foreground" :class="icon"></span>
+        <span class="iconify size=4 md:size-5 text-muted-foreground" :class="icon"></span>
       </span>
 
       <slot name="actionButton" />

@@ -1,5 +1,7 @@
+import { PaymentType } from '@/enums/payment'
+
 export type Payment = {
-  type: string
+  type: PaymentType
   name: string
   icon: string
 }
