@@ -5,7 +5,7 @@ const stepper = useStepperStore()
 </script>
 
 <template>
-  <div class="flex justify-between">
+  <div class="flex gap-4 justify-between">
     <Button
       v-if="!stepper.isFirstStep"
       @click="stepper.prev"
@@ -15,15 +15,15 @@ const stepper = useStepperStore()
       Назад
     </Button>
     <Button
-      class="ml-auto h-8 text-sm md:h-9 md:text-base"
+      class="w-full text-sm md:text-base"
       v-if="stepper.currentStep !== 1"
       @click="stepper.next"
       :disabled="!stepper.canGoNext"
     >
-      Далее
+      К оплате
     </Button>
     <Button
-      class="ml-auto h-8 text-sm md:h-9 md:text-base"
+      class="ml-auto flex-1 md:text-base"
       v-if="stepper.currentStep === 1"
       :disabled="!stepper.currentStepData?.completed"
     >

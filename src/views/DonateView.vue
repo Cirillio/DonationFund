@@ -9,8 +9,8 @@ stepper.initStepper({ steps: formSteps })
 </script>
 
 <template>
-  <div class="flex md:x-pad h-full flex-1 w-full justify-center items-center">
-    <div class="max-w-[486px] w-full">
+  <div class="flex md:x-pad h-full py-10 flex-1 w-full justify-center items-center">
+    <div class="max-w-[436px] w-full">
       <div class="md:px-8 px-4 flex gap-4 flex-col">
         <BlankForm v-if="stepper.currentStep === 0" />
         <PayForm v-if="stepper.currentStep === 1" />

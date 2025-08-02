@@ -47,93 +47,68 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
 :root {
-  --background: oklch(99.107% 0.00011 271.152);
-  --foreground: oklch(0% 0 0);
+  --background: oklch(98.7% 0.003 250); /* очень светлый чистый фон с голубоватым нюансом */
+  --foreground: oklch(15% 0.005 260); /* почти чёрный, очень лёгкий холодный оттенок */
 
-  --card: oklch(99.107% 0.00011 271.152);
-  --card-foreground: oklch(0.145 0 0);
+  --card: oklch(100% 0 0); /* чисто белый */
+  --card-foreground: oklch(17% 0.004 260);
 
-  --popover: oklch(93.403% 0.00011 271.152);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover: oklch(96.3% 0.006 245); /* светло-голубой поповер */
+  --popover-foreground: oklch(18% 0.005 260);
 
-  --primary: oklch(81.163% 0.20779 152.715); /* Зелёный Vue (светлая тема) */
-  --primary-foreground: oklch(24.778% 0.06219 150.206);
+  --primary: oklch(82% 0.208 151); /* Vue-зелёный ярче обычного */
+  --primary-foreground: oklch(14% 0.03 151); /* очень тёмный для контраста */
 
-  --secondary: oklch(94.611% 0.00011 271.152);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(92% 0.008 255); /* светлый голубой */
+  --secondary-foreground: oklch(24% 0.007 260);
 
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(34.458% 0.00004 271.152 / 0.758);
+  --muted: oklch(94% 0.003 240); /* мягкий холодный серый */
+  --muted-foreground: oklch(37% 0.004 250 / 0.7);
 
-  --ghost: oklch(75.179% 0.25261 142.678 / 0.133);
+  --ghost: oklch(91% 0.012 150 / 0.09); /* нежно-зелёный прозрачный */
+  --accent: oklch(88% 0.034 245); /* мягкая бирюза */
+  --accent-foreground: oklch(19% 0.02 240);
 
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.2 0 0);
+  --destructive: oklch(68% 0.17 27); /* ярко-красный (ошибка) */
+  --destructive-foreground: oklch(43.725% 0.16818 31.451);
 
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(88% 0.003 240 / 0.5);
+  --input: oklch(97% 0.003 250 / 0.65);
+  --ring: oklch(79% 0.21 151);
 
-  --border: oklch(85.761% 0.0001 271.152 / 0.383);
-
-  --input: oklch(76.676% 0.00009 271.152 / 0.534);
-  --ring: oklch(63.745% 0.15532 155.706); /* Совпадает с primary */
-
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  --radius: 0.75rem;
-
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --radius: 1rem;
 }
 
 .dark {
-  --background: oklch(0.16 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.17 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7862 0.192 155.63); /* Темнее #3eaf7c */
-  --primary-foreground: oklch(0.2046 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  --background: oklch(0.2103 0.0059 285.89);
+  --foreground: oklch(98% 0.006 260); /* чистый белый */
 
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --card: oklch(0.2739 0.0055 286.03); /* чуть светлее фон, для карточек */
+  --card-foreground: oklch(0.7118 0.0129 286.07);
 
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(35.233% 0.00004 271.152);
-  --ring: oklch(0.7862 0.192 155.63);
+  --popover: oklch(0.2739 0.0055 286.03); /* отдельные блоки, тоже светлее основного */
+  --popover-foreground: oklch(95% 0.008 260);
 
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --primary: oklch(85.178% 0.2145 153.686); /* vue green — на таком фоне смотрится супер ярко */
+  --primary-foreground: oklch(0.2103 0.0059 285.89);
+
+  --secondary: oklch(0.312 0.0124 285.66); /* серый для второстепенных блоков */
+  --secondary-foreground: oklch(96% 0.008 260);
+
+  --muted: oklch(28% 0.006 260);
+  --muted-foreground: oklch(75% 0.008 260 / 0.7);
+
+  --ghost: oklch(32% 0.012 170 / 0.15); /* прозрачный мятный */
+  --accent: oklch(88% 0.02 270); /* ярко-белый с сиреневым тоном */
+  --accent-foreground: oklch(17% 0.012 270);
+
+  --destructive: oklch(0.3959 0.1331 25.72);
+  --destructive-foreground: oklch(0.6368 0.2078 25.33);
+
+  --border: oklch(0.3703 0.0119 285.81); /* явный бордер */
+  --input: oklch(14% 0.008 260 / 0.7); /* чуть прозрачнее фон */
+  --ring: oklch(78% 0.21 152);
 }
 
 @layer base {
@@ -162,6 +137,10 @@
 
   [data-slot='form-message'] {
     @apply text-xs md:text-sm;
+  }
+
+  [data-slot='form-description'] {
+    @apply text-xs;
   }
 }
 

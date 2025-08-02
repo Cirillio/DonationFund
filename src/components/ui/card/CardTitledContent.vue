@@ -6,24 +6,22 @@ defineProps({
     type: String,
     required: true,
   },
-  desc: String,
   icon: String,
 })
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 md:gap-6 flex-1">
+  <div class="flex flex-col gap-4 flex-1">
     <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-1.5">
-        <div class="flex gap-1 md:gap-2">
-          <span
-            class="iconify border my-auto size-5 md:size-6 dark:text-primary"
-            :class="[icon]"
-          ></span>
-          <span class="text-base md:text-xl">{{ title }}</span>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-col items-center gap-2">
+          <span class="iconify border my-auto size-9 dark:text-primary" :class="[icon]"></span>
+          <Label class="!text-3xl !font-semibold">{{ title }}</Label>
         </div>
-        <Separator />
-        <span class="text-xs md:text-sm text-muted-foreground">{{ desc }}</span>
+        <div class="flex w-full px-4">
+          <Separator />
+        </div>
+        <slot name="desc" />
       </div>
     </div>
     <div class="flex h-full">

@@ -64,6 +64,16 @@ watch(
       title="Оплата"
       desc="Минимальная сумма пожертвования 100 рублей"
     >
+      <template #desc>
+        <span class="max-[400px]:text-xs text-sm text-muted-foreground"
+          >Начните помогать от
+          <span
+            class="dark:text-primary dark:bg-transparent dark:p-0 bg-primary/50 text-primary-foreground px-1.5 py-0.5 rounded-md"
+            >100</span
+          >
+          рублей
+        </span>
+      </template>
       <div class="flex flex-col w-full gap-4">
         <FormField v-slot="{ resetField, meta, handleBlur, validate }" name="payAmount">
           <FormItem class="gap-0">
@@ -73,7 +83,6 @@ watch(
                 ref="currencyRef"
                 :value="currencyFormatted"
                 icon="f7--money-rubl"
-                label="Сумма пожертвования"
                 placeholder="100,00"
                 name="payAmount"
                 type="text"
@@ -102,11 +111,14 @@ watch(
           </FormItem>
         </FormField>
 
-        <Separator class="!bg-input" />
+        <div class="flex gap-2 items-center">
+          <Separator class="shrink mx-2" />
+          <span class="text-xs text-nowrap md:text-sm text-muted-foreground">Cпособ оплаты</span>
+          <Separator class="shrink mx-2" />
+        </div>
 
         <FormField v-slot="{ setValue, value }" name="payPaymentType">
           <FormItem class="gap-1">
-            <Label class="text-sm md:text-base w-fit">Выберите удобный способ оплаты</Label>
             <FormControl>
               <div class="flex md:flex-col gap-2">
                 <CheckBlock

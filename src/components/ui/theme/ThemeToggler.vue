@@ -2,7 +2,7 @@
   <Button
     @click="toggleMode"
     variant="outline"
-    class="relative max-md:w-7 max-md:h-7 w-8 h-8 p-0 aspect-square grid place-items-center overflow-hidden"
+    class="relative p-0 aspect-square grid place-items-center overflow-hidden"
   >
     <Transition name="rotate-fade" mode="out-in">
       <F7Icon :key="mode" :class="iconClass" class="size-4 md:size-5" />

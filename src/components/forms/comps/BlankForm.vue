@@ -47,34 +47,25 @@ watch(
 
 <template>
   <form @submit.prevent="() => {}">
-    <CardTitledContent
-      icon="f7--person-crop-rectangle"
-      title="Анкета"
-      desc="Пожалуйста, заполните необходимые поля (*)"
-    >
-      <div class="flex flex-col w-full gap-4">
-        <!-- Name -->
-        <FormField
-          v-slot="{ componentField }"
-          :validate-on-blur="!donorBlank.isFieldDirty"
-          name="blankName"
-        >
-          <FormItem class="gap-1">
-            <FormControl>
-              <TypedInput
-                v-bind="componentField"
-                icon="f7--person"
-                label="Имя"
-                placeholder=""
-                name="blankName"
-                type="text"
-              />
-            </FormControl>
-            <FormMessage />
-            <FormDescription>Оставьте пустым для анонимности</FormDescription>
-          </FormItem>
-        </FormField>
+    <CardTitledContent icon="f7--person-crop-rectangle" title="Анкета">
+      <template #desc>
+        <span class="text-center max-[400px]:text-xs text-sm text-muted-foreground"
+          >Пожалуйста, укажите имя,
+          <div class="mt-1 dark:m-0 flex gap-2 dark:gap-1 items-center">
+            <span
+              class="dark:text-primary dark:bg-transparent dark:p-0 bg-primary/50 text-primary-foreground px-1.5 py-0.5 rounded-md"
+              >номер телефона</span
+            >
+            и
+            <span
+              class="dark:text-primary dark:bg-transparent dark:p-0 bg-primary/50 text-primary-foreground px-1.5 py-0.5 rounded-md"
+              >дату рождения</span
+            >
+          </div>
+        </span>
+      </template>
 
+      <div class="flex flex-col w-full gap-4">
         <!-- Phone -->
         <FormField
           v-slot="{ componentField, resetField }"
@@ -87,18 +78,14 @@ watch(
                 v-mask="phoneMask"
                 v-bind="componentField"
                 icon="f7--phone"
-                label="Телефон*"
                 :placeholder="phoneMaskSelected.code"
                 name="blankPhone"
-                type="text"
+                type="tel"
               >
                 <template #actionButton>
                   <DropdownMenu>
                     <DropdownMenuTrigger as-child>
-                      <Button
-                        :variant="'outline'"
-                        class="dark:hover:border-primary px-2 md:px-3 h-8 md:h-9 gap-1 md:gap-2 justify-between w-fit"
-                      >
+                      <Button :variant="'outline'" class="px-3 gap-1 md:gap-2 w-fit">
                         <span v-if="phoneMaskSelected" class="text-sm md:text-base">{{
                           phoneMaskSelected.icon
                         }}</span>
@@ -109,7 +96,7 @@ watch(
 
                     <DropdownMenuContent
                       :align="'end'"
-                      class="min-w-[var(--radix-dropdown-menu-trigger-width)] gap-1 flex flex-col"
+                      class="min-w-[var(--radix-dropdown-menu-trigger-width)] gap-2 duration-25 flex flex-col"
                     >
                       <DropdownMenuItem
                         v-for="spec in phoneSpecs"
@@ -121,15 +108,15 @@ watch(
                             resetField({ value: spec.code })
                           }
                         "
-                        class="flex hover:!bg-input/50 hover:shadow-xs active:!bg-input/50 active:shadow-xs transition-all items-center px-2 py-1 text-xs md:text-sm gap-2"
+                        class="flex gap-2 md:py-1 cursor-pointer"
                         :class="{
-                          'bg-muted hover:!bg-muted shadow-xs':
+                          '!bg-primary !text-primary-foreground shadow-sm':
                             phoneMaskSelected.code === spec.code,
                         }"
                       >
                         <span class="text-sm md:text-base">{{ spec.icon }}</span>
                         <span>{{ spec.name }}</span>
-                        <span class="ml-auto text-muted-foreground">{{ spec.code }}</span>
+                        <span class="ml-auto">{{ spec.code }}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -140,29 +127,55 @@ watch(
           </FormItem>
         </FormField>
 
-        <!-- Birth -->
-        <FormField
-          v-slot="{ componentField }"
-          :validate-on-blur="!donorBlank.isFieldDirty"
-          name="blankBirth"
-        >
-          <FormItem class="gap-1">
-            <FormControl>
-              <TypedInput
-                v-bind="componentField"
-                icon="f7--calendar"
-                label="Дата рождения*"
-                placeholder="дд.мм.гггг"
-                name="blankBirth"
-                type="text"
-                v-mask="'##.##.####'"
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </FormField>
+        <div class="flex max-[400px]:flex-col gap-4">
+          <!-- Name -->
+          <FormField
+            v-slot="{ componentField }"
+            :validate-on-blur="!donorBlank.isFieldDirty"
+            name="blankName"
+          >
+            <FormItem class="gap-1 flex-3">
+              <FormControl>
+                <TypedInput
+                  v-bind="componentField"
+                  icon="f7--person"
+                  placeholder=""
+                  name="blankName"
+                  type="text"
+                />
+              </FormControl>
+              <FormMessage />
+              <FormDescription>Оставьте пустым для анонимности</FormDescription>
+            </FormItem>
+          </FormField>
 
-        <Separator class="!bg-input" />
+          <!-- Birth -->
+          <FormField
+            v-slot="{ componentField }"
+            :validate-on-blur="!donorBlank.isFieldDirty"
+            name="blankBirth"
+          >
+            <FormItem class="gap-1 flex-2">
+              <FormControl>
+                <TypedInput
+                  v-bind="componentField"
+                  icon="f7--calendar"
+                  placeholder="дд.мм.гггг"
+                  name="blankBirth"
+                  type="text"
+                  v-mask="'##.##.####'"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          </FormField>
+        </div>
+
+        <div class="flex gap-2 items-center">
+          <Separator class="shrink mx-2" />
+          <span class="text-xs md:text-sm text-muted-foreground">Дополнительно</span>
+          <Separator class="shrink mx-2" />
+        </div>
 
         <!-- Group -->
         <FormField
@@ -173,8 +186,6 @@ watch(
           <FormItem class="gap-1">
             <FormControl>
               <div class="flex flex-col">
-                <Label class="pb-1.25 text-base w-fit">Дополнительно</Label>
-
                 <CheckBlock
                   class="w-full"
                   v-bind="componentField"

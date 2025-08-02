@@ -33,7 +33,7 @@ const check = computed({
 <template>
   <Button
     @click="check = !check"
-    class="group h-8 md:!h-9 gap-2 py-1 md:!py-2 px-2 duration-150"
+    class="group h-10 gap-2 p-3 pl-2 duration-150"
     :variant="check ? 'ring' : 'outline'"
     type="button"
     size="sm"
@@ -49,7 +49,7 @@ const check = computed({
 
     <Checkbox
       :model-value="check"
-      class="cursor-pointer w-5 h-5 rounded-[var(--radius)] backdrop-blur-sm transition-all bg-none ml-auto dark:data-[state=unchecked]:group-hover:border-primary"
+      class="cursor-pointer w-5 h-5 border-border rounded-[var(--radius)] backdrop-blur-sm transition-all bg-none ml-auto"
     />
   </Button>
 </template>
